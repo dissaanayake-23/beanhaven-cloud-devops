@@ -6,24 +6,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CoffeeRepository extends JpaRepository<Coffee, Long> {
 
-    // Find by category
+    Optional<Coffee> findByName(String name);
+
     List<Coffee> findByCategory(String category);
 
-    // Find available coffees
     List<Coffee> findByAvailableTrue();
 
-    // Find by name containing (search)
     List<Coffee> findByNameContainingIgnoreCase(String name);
 
-    // Find coffees in price range
     @Query("SELECT c FROM Coffee c WHERE c.price BETWEEN :minPrice AND :maxPrice")
-    List<Coffee> findByPriceBetween(@Param("minPrice") Double minPrice,
-                                    @Param("maxPrice") Double maxPrice);
-
-    // Find by category and available
-    List<Coffee> findByCategoryAndAvailableTrue(String category);
+    List<Coffee> findByPriceRange(@Param("minPrice") Double minPrice,
+                                  @Param("maxPrice") Double maxPrice);
 }

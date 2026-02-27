@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Order Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .test-section {
+      background: #f5f5f5;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    button {
+      background: #6F4E37;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background: #3E2723;
+    }
+    .result {
+      background: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 4px solid #6F4E37;
+      white-space: pre-wrap;
+      font-family: monospace;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .success { border-left-color: green; }
+    .error { border-left-color: red; }
+  </style>
+</head>
+<body>
+<h1>☕ Coffee Shop API Test</h1>
+
+<div class="test-section">
+  <h2>1. Check Backend Endpoints</h2>
+  <button onclick="testCoffees()">Test /coffees</button>
+  <button onclick="testOrders()">Test /orders</button>
+  <button onclick="testOrderItems()">Test /order-items</button>
+  <div id="endpoint-result" class="result"></div>
+</div>
+
+<div class="test-section">
+  <h2>2. Create Test Order</h2>
+  <button onclick="createTestOrder()">Create Full Order (Order + Item)</button>
+  <div id="order-result" class="result"></div>
+</div>
+
+<div class="test-section">
+  <h2>3. View All Data</h2>
+  <button onclick="viewAllOrders()">View All Orders with Items</button>
+  <div id="view-result" class="result"></div>
+</div>
+
+<script>
+  const API_BASE_URL = 'http://localhost:8080';
+
+  async function testCoffees() {
+    const resultDiv = document.getElementById('endpoint-result');
+    resultDiv.innerHTML = 'Testing /coffees endpoint...';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/coffees`);
+      const data = await response.json();
+
+      resultDiv.className = 'result success';
+      resultDiv.innerHTML = `✅ SUCCESS - Found ${data.length} coffees:\n\n` +
+              JSON.stringify(data, null, 2);
+    } catch (error) {
+      resultDiv.className = 'result error';
+      resultDiv.innerHTML = `❌ ERROR:\n${error.message}`;
+    }
+  }
+
+  async function testOrders() {
+    const resultDiv = document.getElementById('endpoint-result');
+    resultDiv.innerHTML = 'Testing /orders endpoint...';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/orders`);
+      const data = await response.json();
+
+      resultDiv.className = 'result success';
+      resultDiv.innerHTML = `✅ SUCCESS - Found ${data.length} orders:\n\n` +
+              JSON.stringify(data, null, 2);
+    } catch (error) {
+      resultDiv.className = 'result error';
+      resultDiv.innerHTML = `❌ ERROR:\n${error.message}`;
+    }
+  }
+
+  async function testOrderItems() {
+    const resultDiv = document.getElementById('endpoint-result');
+    resultDiv.innerHTML = 'Testing /order-items endpoint...';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/order-items`);
+      const data = await response.json();
+
+      resultDiv.className = 'result success';
+      resultDiv.innerHTML = `✅ SUCCESS - Found ${data.length} order items:\n\n` +
+              JSON.stringify(data, null, 2);
+    } catch (error) {
+      resultDiv.className = 'result error';
+      resultDiv.innerHTML = `❌ ERROR:\n${error.message}`;
+    }
+  }
+
+  async function createTestOrder() {
+    const resultDiv = document.getElementById('order-result');
+    resultDiv.innerHTML = '🔄 Creating test order...\n\n';
+
+    try {
+      // Step 1: Get first coffee
+      resultDiv.innerHTML += 'Step 1: Fetching coffees...\n';
+      const coffeesResponse = await fetch(`${API_BASE_URL}/coffees`);
+      const coffees = await coffeesResponse.json();
+
+      if (coffees.length === 0) {
+        throw new Error('No coffees found in database! Please add coffees first.');
+      }
+
+      const firstCoffee = coffees[0];
+      resultDiv.innerHTML += `✅ Found coffee: ${firstCoffee.name} (ID: ${firstCoffee.id})\n\n`;
+
+      // Step 2: Create order
+      resultDiv.innerHTML += 'Step 2: Creating order...\n';
+      const orderData = {
+        customerName: 'Test Customer',
+        customerEmail: 'test@test.com',
+        customerPhone: '1234567890',
+        totalPrice: firstCoffee.price * 2,
+        status: 'PENDING',
+        deliveryAddress: 'Test Address 123'
+      };
+
+      resultDiv.innerHTML += `Order Data: ${JSON.stringify(orderData, null, 2)}\n\n`;
+
+      const orderResponse = await fetch(`${API_BASE_URL}/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+
+      if (!orderResponse.ok) {
+        const errorText = await orderResponse.text();
+        throw new Error(`Order creation failed (${orderResponse.status}): ${errorText}`);
+      }
+
+      const createdOrder = await orderResponse.json();
+      resultDiv.innerHTML += `✅ Order created: ID ${createdOrder.id}\n\n`;
+
+      // Step 3: Create order item
+      resultDiv.innerHTML += 'Step 3: Creating order item...\n';
+      const orderItemData = {
+        order: { id: createdOrder.id },
+        coffee: { id: firstCoffee.id },
+        quantity: 2,
+        priceAtTime: firstCoffee.price,
+        specialInstructions: 'Test order - extra hot'
+      };
+
+      resultDiv.innerHTML += `Order Item Data: ${JSON.stringify(orderItemData, null, 2)}\n\n`;
+
+      const itemResponse = await fetch(`${API_BASE_URL}/order-items`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderItemData)
+      });
+
+      if (!itemResponse.ok) {
+        const errorText = await itemResponse.text();
+        throw new Error(`Order item creation failed (${itemResponse.status}): ${errorText}`);
+      }
+
+      const createdOrderItem = await itemResponse.json();
+      resultDiv.innerHTML += `✅ Order item created: ID ${createdOrderItem.id}\n\n`;
+
+      resultDiv.className = 'result success';
+      resultDiv.innerHTML += '\n🎉 SUCCESS! Complete order created:\n\n' +
+              `Order ID: ${createdOrder.id}\n` +
+              `Coffee: ${firstCoffee.name}\n` +
+              `Quantity: 2\n` +
+              `Total: $${orderData.totalPrice.toFixed(2)}`;
+
+    } catch (error) {
+      resultDiv.className = 'result error';
+      resultDiv.innerHTML += `\n\n❌ ERROR:\n${error.message}\n\n${error.stack}`;
+    }
+  }
+
+  async function viewAllOrders() {
+    const resultDiv = document.getElementById('view-result');
+    resultDiv.innerHTML = 'Fetching all orders...';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/orders`);
+      const orders = await response.json();
+
+      resultDiv.className = 'result success';
+      resultDiv.innerHTML = `Found ${orders.length} orders:\n\n` +
+              JSON.stringify(orders, null, 2);
+    } catch (error) {
+      resultDiv.className = 'result error';
+      resultDiv.innerHTML = `❌ ERROR:\n${error.message}`;
+    }
+  }
+
+  // Auto-run tests on load
+  window.onload = function() {
+    console.log('Coffee Shop API Tester loaded');
+    console.log('Backend URL:', API_BASE_URL);
+  };
+</script>
+</body>
+</html>

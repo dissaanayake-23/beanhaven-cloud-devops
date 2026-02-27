@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Bean Haven</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --coffee-brown: #6F4E37;
+            --dark-brown: #3E2723;
+            --light-coffee: #A67B5B;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f0e6 0%, #e8dfd0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .admin-portal-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border-top: 8px solid var(--coffee-brown);
+        }
+        .admin-icon {
+            font-size: 5rem;
+            color: var(--coffee-brown);
+            margin-bottom: 25px;
+        }
+        .btn-admin {
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--dark-brown) 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            margin: 15px 0;
+        }
+        .btn-admin:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(111, 78, 55, 0.3);
+            color: white;
+        }
+        .btn-outline-admin {
+            border: 2px solid var(--coffee-brown);
+            color: var(--coffee-brown);
+            background: transparent;
+            padding: 14px 35px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            margin: 15px 0;
+        }
+        .btn-outline-admin:hover {
+            background: var(--coffee-brown);
+            color: white;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .status-logged-in {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status-logged-out {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .admin-features {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .admin-features h5 {
+            color: var(--dark-brown);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--coffee-brown);
+            padding-bottom: 8px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px 0;
+        }
+        .feature-item i {
+            color: var(--coffee-brown);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+<!-- 🔐 AUTHENTICATION CHECK -->
+<script>
+    (function checkAuthOnLoad() {
+        const token = localStorage.getItem('token');
+
+        // If no token and trying to access portal, it's okay - show login options
+        // The page will handle visibility based on token
+    })();
+</script>
+
+<div class="admin-portal-card">
+    <div class="admin-icon">
+        <i class="fas fa-user-shield"></i>
+    </div>
+
+    <h1 class="mb-3" style="color: var(--dark-brown);">Bean Haven Admin Portal</h1>
+    <p class="text-muted mb-4">Secure staff access portal</p>
+
+    <!-- Authentication Status -->
+    <div id="authStatus" class="mb-4">
+        <!-- Will be filled by JavaScript -->
+    </div>
+
+    <!-- Message Display -->
+    <div id="message" class="alert" style="display: none; border-radius: 10px;"></div>
+
+    <!-- ==================== LOGGED IN SECTION ==================== -->
+    <div id="loggedInSection" style="display: none;">
+        <div class="admin-features">
+            <h5><i class="fas fa-cogs me-2"></i>Admin Features</h5>
+            <div class="feature-item">
+                <i class="fas fa-mug-hot"></i>
+                <span>Add/Edit/Delete Coffee Items</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-list-alt"></i>
+                <span>Manage Coffee Categories</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>View All Customer Orders</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <span>View Sales Analytics</span>
+            </div>
+        </div>
+
+        <div class="d-grid gap-3">
+            <a href="admin.html" class="btn btn-admin">
+                <i class="fas fa-tachometer-alt me-2"></i>Go to Admin Dashboard
+            </a>
+
+            <a href="menu.html" class="btn btn-outline-admin">
+                <i class="fas fa-eye me-2"></i>View Customer Menu
+            </a>
+
+            <a href="index.html" class="btn btn-outline-secondary">
+                <i class="fas fa-home me-2"></i>Back to Homepage
+            </a>
+
+            <button onclick="logout()" class="btn btn-danger mt-3">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout from Admin
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== LOGGED OUT SECTION ==================== -->
+    <div id="loggedOutSection">
+        <div class="alert alert-info" style="border-radius: 10px; border-left: 4px solid var(--coffee-brown);">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Restricted Access:</strong> This area is for authorized staff only.
+        </div>
+
+        <div class="d-grid gap-3">
+            <a href="admin-login.html" class="btn btn-admin">
+                <i class="fas fa-sign-in-alt me-2"></i>Login to Admin Dashboard
+            </a>
+
+            <a href="index.html" class="btn btn-outline-admin">
+                <i class="fas fa-arrow-left me-2"></i>Return to Customer Website
+            </a>
+        </div>
+
+        <div class="mt-4 pt-3 border-top">
+            <p class="text-muted small mb-2">
+                <i class="fas fa-key me-1"></i>
+                <strong>Demo Credentials:</strong>
+            </p>
+            <div class="bg-light p-3 rounded">
+                <p class="mb-1"><strong>Username:</strong> admin</p>
+                <p class="mb-0"><strong>Password:</strong> admin123</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== CHECK AUTHENTICATION STATUS ====================
+    function checkAuthStatus() {
+        const token = localStorage.getItem('token');
+        const adminName = localStorage.getItem('adminName');
+
+        const loggedInSection = document.getElementById('loggedInSection');
+        const loggedOutSection = document.getElementById('loggedOutSection');
+        const authStatus = document.getElementById('authStatus');
+
+        if (token && adminName) {
+            // ✅ User is LOGGED IN
+            loggedInSection.style.display = 'block';
+            loggedOutSection.style.display = 'none';
+
+            authStatus.innerHTML = `
+                    <div class="status-badge status-logged-in">
+                        <i class="fas fa-check-circle me-1"></i>
+                        Logged in as: <strong>${adminName}</strong>
+                    </div>
+                `;
+
+        } else {
+            // 🔒 User is LOGGED OUT
+            loggedInSection.style.display = 'none';
+            loggedOutSection.style.display = 'block';
+
+            authStatus.innerHTML = `
+                    <div class="status-badge status-logged-out">
+                        <i class="fas fa-lock me-1"></i>
+                        Authentication Required
+                    </div>
+                `;
+        }
+    }
+
+    // ==================== LOGOUT FUNCTION ====================
+    function logout() {
+        if (confirm('Are you sure you want to logout from admin panel?')) {
+            // Clear all admin data
+            localStorage.removeItem('token');
+            localStorage.removeItem('adminName');
+            localStorage.removeItem('loginTime');
+
+            // Show success message
+            showMessage('Logged out successfully!', 'success');
+
+            // Update UI after delay
+            setTimeout(() => {
+                checkAuthStatus();
+            }, 1500);
+        }
+    }
+
+    // ==================== SHOW MESSAGE ====================
+    function showMessage(text, type) {
+        const messageDiv = document.getElementById('message');
+        messageDiv.textContent = text;
+        messageDiv.className = `alert alert-${type}`;
+        messageDiv.style.display = 'block';
+
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 3000);
+    }
+
+    // ==================== CHECK SESSION TIMEOUT ====================
+    function checkSessionTimeout() {
+        const loginTime = localStorage.getItem('loginTime');
+
+        if (loginTime) {
+            const hoursPassed = (Date.now() - Number(loginTime)) / (1000 * 60 * 60);
+
+            // Auto-logout after 8 hours
+            if (hoursPassed >= 8) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('adminName');
+                localStorage.removeItem('loginTime');
+
+                showMessage('Session expired. Please login again.', 'warning');
+                checkAuthStatus();
+            }
+        }
+    }
+
+    // ==================== INITIALIZE ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        checkAuthStatus();
+        checkSessionTimeout();
+
+        // Check session every minute
+        setInterval(checkSessionTimeout, 60000);
+    });
+</script>
+</body>
+</html>

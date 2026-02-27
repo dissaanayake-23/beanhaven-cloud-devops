@@ -6,71 +6,176 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/coffees")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class CoffeeController {
 
     @Autowired
     private CoffeeService coffeeService;
 
-    // Get all coffees
+    // GET ALL COFFEES
     @GetMapping
-    public ResponseEntity<List<Coffee>> getAllCoffees() {
-        List<Coffee> coffees = coffeeService.getAllCoffees();
-        return new ResponseEntity<>(coffees, HttpStatus.OK);
+    public ResponseEntity<?> getAllCoffees() {
+        try {
+            List<Coffee> coffees = coffeeService.getAllCoffees();
+            return ResponseEntity.ok(coffees);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to fetch coffees: " + e.getMessage()));
+        }
     }
 
-    // Get coffee by ID
+    // GET BY ID
     @GetMapping("/{id}")
-    public ResponseEntity<Coffee> getCoffeeById(@PathVariable Long id) {
-        Coffee coffee = coffeeService.getCoffeeById(id);
-        return new ResponseEntity<>(coffee, HttpStatus.OK);
+    public ResponseEntity<?> getCoffeeById(@PathVariable Long id) {
+        try {
+            Coffee coffee = coffeeService.getCoffeeById(id);
+            if (coffee == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("error", "Coffee not found with id: " + id));
+            }
+            return ResponseEntity.ok(coffee);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", e.getMessage()));
+        }
     }
 
-    // Create new coffee (REMOVED @Valid)
+    // CREATE COFFEE
     @PostMapping
-    public ResponseEntity<Coffee> createCoffee(@RequestBody Coffee coffee) {
-        Coffee createdCoffee = coffeeService.createCoffee(coffee);
-        return new ResponseEntity<>(createdCoffee, HttpStatus.CREATED);
+    public ResponseEntity<?> createCoffee(@RequestBody Coffee coffee) {
+        try {
+            // Validation
+            if (coffee.getName() == null || coffee.getName().trim().isEmpty()) {
+                return ResponseEntity.badRequest()
+                        .body(Map.of("error", "Coffee name is required"));
+            }
+            if (coffee.getPrice() == null || coffee.getPrice() <= 0) {
+                return ResponseEntity.badRequest()
+                        .body(Map.of("error", "Valid price is required (greater than 0)"));
+            }
+
+            Coffee savedCoffee = coffeeService.createCoffee(coffee);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedCoffee);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to create coffee: " + e.getMessage()));
+        }
     }
 
-    // Update coffee (REMOVED @Valid)
+    // UPDATE COFFEE
     @PutMapping("/{id}")
-    public ResponseEntity<Coffee> updateCoffee(@PathVariable Long id,
-                                               @RequestBody Coffee coffeeDetails) {
-        Coffee updatedCoffee = coffeeService.updateCoffee(id, coffeeDetails);
-        return new ResponseEntity<>(updatedCoffee, HttpStatus.OK);
+    public ResponseEntity<?> updateCoffee(@PathVariable Long id, @RequestBody Coffee coffeeDetails) {
+        try {
+            Coffee existingCoffee = coffeeService.getCoffeeById(id);
+            if (existingCoffee == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("error", "Coffee not found with id: " + id));
+            }
+
+            Coffee updatedCoffee = coffeeService.updateCoffee(id, coffeeDetails);
+            return ResponseEntity.ok(updatedCoffee);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to update coffee: " + e.getMessage()));
+        }
     }
 
-    // Delete coffee
+    // DELETE COFFEE
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCoffee(@PathVariable Long id) {
-        coffeeService.deleteCoffee(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<?> deleteCoffee(@PathVariable Long id) {
+        try {
+            Coffee existingCoffee = coffeeService.getCoffeeById(id);
+            if (existingCoffee == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("error", "Coffee not found with id: " + id));
+            }
+
+            boolean deleted = coffeeService.deleteCoffee(id);
+            if (deleted) {
+                return ResponseEntity.ok(Map.of(
+                        "message", "Coffee deleted successfully",
+                        "deletedId", id,
+                        "deletedName", existingCoffee.getName()
+                ));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("error", "Failed to delete coffee"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to delete coffee: " + e.getMessage()));
+        }
     }
 
-    // Get coffees by category
+    // TEST ENDPOINT
+    @GetMapping("/test")
+    public ResponseEntity<?> test() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "OK");
+        response.put("message", "Coffee API is working!");
+        response.put("timestamp", System.currentTimeMillis());
+        response.put("service", "Bean Haven Coffee Shop API");
+        return ResponseEntity.ok(response);
+    }
+
+    // HEALTH CHECK
+    @GetMapping("/health")
+    public ResponseEntity<?> health() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "UP");
+        response.put("service", "Coffee Shop Backend");
+        response.put("timestamp", System.currentTimeMillis());
+
+        try {
+            List<Coffee> coffees = coffeeService.getAllCoffees();
+            response.put("coffeeCount", coffees.size());
+            response.put("database", "Connected");
+        } catch (Exception e) {
+            response.put("database", "Error: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    // GET BY CATEGORY
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<Coffee>> getCoffeesByCategory(@PathVariable String category) {
-        List<Coffee> coffees = coffeeService.getCoffeesByCategory(category);
-        return new ResponseEntity<>(coffees, HttpStatus.OK);
+    public ResponseEntity<?> getCoffeesByCategory(@PathVariable String category) {
+        try {
+            List<Coffee> coffees = coffeeService.getCoffeesByCategory(category);
+            return ResponseEntity.ok(coffees);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", e.getMessage()));
+        }
     }
 
-    // Get available coffees
+    // GET AVAILABLE COFFEES
     @GetMapping("/available")
-    public ResponseEntity<List<Coffee>> getAvailableCoffees() {
-        List<Coffee> coffees = coffeeService.getAvailableCoffees();
-        return new ResponseEntity<>(coffees, HttpStatus.OK);
+    public ResponseEntity<?> getAvailableCoffees() {
+        try {
+            List<Coffee> coffees = coffeeService.getAvailableCoffees();
+            return ResponseEntity.ok(coffees);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", e.getMessage()));
+        }
     }
 
-    // Search coffees
+    // SEARCH COFFEES
     @GetMapping("/search")
-    public ResponseEntity<List<Coffee>> searchCoffees(@RequestParam String keyword) {
-        List<Coffee> coffees = coffeeService.searchCoffees(keyword);
-        return new ResponseEntity<>(coffees, HttpStatus.OK);
+    public ResponseEntity<?> searchCoffees(@RequestParam String keyword) {
+        try {
+            List<Coffee> coffees = coffeeService.searchCoffees(keyword);
+            return ResponseEntity.ok(coffees);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", e.getMessage()));
+        }
     }
 }

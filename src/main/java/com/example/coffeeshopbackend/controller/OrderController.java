@@ -1,88 +1,98 @@
 package com.example.coffeeshopbackend.controller;
 
 import com.example.coffeeshopbackend.entity.Order;
-import com.example.coffeeshopbackend.entity.Order.OrderStatus;
-import com.example.coffeeshopbackend.service.OrderService;
+import com.example.coffeeshopbackend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orders")
-@CrossOrigin("*")
+@RequestMapping("/api/orders")  // THIS IS CRITICAL - Makes the endpoint /orders
+@CrossOrigin(origins = "*")  // THIS IS CRITICAL - Allows frontend to connect
 public class OrderController {
 
     @Autowired
-    private OrderService orderService;
+    private OrderRepository orderRepository;
 
-    // Get all orders
+    // GET all orders
     @GetMapping
     public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = orderService.getAllOrders();
-        return new ResponseEntity<>(orders, HttpStatus.OK);
-    }
-
-    // Get order by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
-        Order order = orderService.getOrderById(id);
-        return new ResponseEntity<>(order, HttpStatus.OK);
-    }
-
-    // Create new order (REMOVED @Valid)
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order createdOrder = orderService.createOrder(order);
-        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
-    }
-
-    // Update order (REMOVED @Valid)
-    @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id,
-                                             @RequestBody Order orderDetails) {
-        Order updatedOrder = orderService.updateOrder(id, orderDetails);
-        return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
-    }
-
-    // Delete order
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
-        orderService.deleteOrder(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    // Get orders by status
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<Order>> getOrdersByStatus(@PathVariable String status) {
         try {
-            OrderStatus orderStatus = OrderStatus.valueOf(status.toUpperCase());
-            List<Order> orders = orderService.getOrdersByStatus(orderStatus);
+            List<Order> orders = orderRepository.findAll();
             return new ResponseEntity<>(orders, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // Get orders by customer email
-    @GetMapping("/customer/{email}")
-    public ResponseEntity<List<Order>> getOrdersByCustomerEmail(@PathVariable String email) {
-        List<Order> orders = orderService.getOrdersByCustomerEmail(email);
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+    // GET order by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        try {
+            Order order = orderRepository.findById(id).orElse(null);
+            if (order != null) {
+                return new ResponseEntity<>(order, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    // Update order status only
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id,
-                                                   @RequestParam String status) {
+    // POST - Create new order
+    @PostMapping
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         try {
-            OrderStatus orderStatus = OrderStatus.valueOf(status.toUpperCase());
-            Order updatedOrder = orderService.updateOrderStatus(id, orderStatus);
-            return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            // Set the order date to now if not provided
+            if (order.getOrderDate() == null) {
+                order.setOrderDate(LocalDateTime.now());
+            }
+
+            // Save the order
+            Order savedOrder = orderRepository.save(order);
+            return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace(); // This will help you see the error in console
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // PUT - Update order
+    @PutMapping("/{id}")
+    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order orderDetails) {
+        try {
+            Order order = orderRepository.findById(id).orElse(null);
+            if (order != null) {
+                order.setCustomerName(orderDetails.getCustomerName());
+                order.setCustomerEmail(orderDetails.getCustomerEmail());
+                order.setCustomerPhone(orderDetails.getCustomerPhone());
+                order.setTotalPrice(orderDetails.getTotalPrice());
+                order.setStatus(orderDetails.getStatus());
+                order.setDeliveryAddress(orderDetails.getDeliveryAddress());
+
+                Order updatedOrder = orderRepository.save(order);
+                return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // DELETE order
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteOrder(@PathVariable Long id) {
+        try {
+            orderRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

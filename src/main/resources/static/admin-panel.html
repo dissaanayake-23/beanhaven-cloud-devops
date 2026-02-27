@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Bean Haven Elite</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-black: #080808;
+      --espresso-dark: #1a1412;
+      --espresso-light: #2c2420;
+      --gold: #d4af37;
+      --text-bright: #ffffff;
+      --text-muted: #a0a0a0;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-bright);
+      display: flex;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: #120e0c;
+      color: white;
+      padding: 25px;
+      position: fixed;
+      height: 100vh;
+      z-index: 1000;
+      border-right: 1px solid var(--espresso-light);
+    }
+
+    .sidebar h3 { color: var(--gold); }
+
+    .menu-item {
+      padding: 12px;
+      margin: 8px 0;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.3s;
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .menu-item:hover, .menu-item.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold);
+      border-left: 4px solid var(--gold);
+    }
+
+    .main-content {
+      margin-left: 260px;
+      flex: 1;
+      padding: 40px;
+      width: calc(100% - 260px);
+    }
+
+    .section { display: none; }
+    .section.active { display: block; animation: fadeIn 0.4s ease; }
+
+    .card-stat {
+      background: var(--espresso-dark);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid var(--espresso-light);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .table {
+      border-collapse: separate !important;
+      border-spacing: 0 12px !important;
+      background: transparent !important;
+      width: 100%;
+    }
+
+    .table thead th {
+      background: transparent !important;
+      color: var(--gold) !important;
+      border: none !important;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1.2px;
+      padding: 10px 20px;
+    }
+
+    .table tbody tr {
+      background-color: var(--espresso-dark) !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
+    .table tbody tr:hover {
+      transform: scale(1.01);
+      background-color: #231a17 !important;
+    }
+
+    .table td {
+      background: transparent !important;
+      border-top: 1px solid var(--espresso-light) !important;
+      border-bottom: 1px solid var(--espresso-light) !important;
+      padding: 20px !important;
+      color: white !important;
+      vertical-align: middle;
+    }
+
+    .table td:first-child {
+      border-left: 1px solid var(--espresso-light) !important;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    .table td:last-child {
+      border-right: 1px solid var(--espresso-light) !important;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+    }
+    .status-pending { background: rgba(212, 175, 55, 0.1); color: var(--gold); border-color: var(--gold); }
+    .status-confirmed { background: rgba(40, 167, 69, 0.1); color: #28a745; border-color: #28a745; }
+    .status-cancelled { background: rgba(220, 53, 69, 0.1); color: #dc3545; border-color: #dc3545; }
+
+    .action-btn {
+      background: transparent;
+      border: 1px solid var(--espresso-light);
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    .action-btn:hover { background: var(--gold); color: black; border-color: var(--gold); }
+    .delete-btn:hover { background: #dc3545; border-color: #dc3545; }
+
+    .modal-content {
+      background: var(--espresso-dark);
+      border: 1px solid var(--gold);
+      border-radius: 15px;
+    }
+    .modal-header { border-bottom: 1px solid var(--espresso-light); }
+    .form-control, .form-select {
+      background: var(--bg-black) !important;
+      border: 1px solid var(--espresso-light) !important;
+      color: white !important;
+    }
+
+    .unauthorized-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      width: 100%;
+      background: var(--bg-black);
+    }
+
+    .unauthorized-card {
+      background: var(--espresso-dark);
+      border: 1px solid var(--espresso-light);
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .unauthorized-card i {
+      font-size: 4rem;
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+
+    .unauthorized-card h2 {
+      color: var(--gold);
+      margin-bottom: 15px;
+    }
+
+    .unauthorized-card p {
+      color: var(--text-muted);
+      margin-bottom: 25px;
+    }
+
+    .unauthorized-card .btn {
+      background: var(--gold);
+      color: var(--espresso-dark);
+      border: none;
+      padding: 10px 30px;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .unauthorized-card .btn:hover {
+      background: white;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+  // CHECK AUTHENTICATION FIRST
+  (function() {
+    const isLoggedIn = localStorage.getItem('adminLoggedIn');
+    const appDiv = document.getElementById('app');
+
+    if (!isLoggedIn || isLoggedIn !== 'true') {
+      // Show unauthorized message
+      appDiv.innerHTML = `
+        <div class="unauthorized-container">
+          <div class="unauthorized-card">
+            <i class="fas fa-lock"></i>
+            <h2>Access Denied</h2>
+            <p>You must be logged in to access the admin panel.</p>
+            <a href="admin-login.html" class="btn">Go to Login</a>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    // If authenticated, load the admin panel content
+    loadAdminContent();
+  })();
+
+  function loadAdminContent() {
+    document.getElementById('app').innerHTML = `
+    <div class="sidebar">
+      <div class="text-center mb-4">
+        <h3 class="fw-bold">☕ Bean Haven</h3>
+        <small class="opacity-50">ELITE PORTAL</small>
+      </div>
+      <div class="menu-item active" onclick="showSection('dashboard', this)"><i class="fas fa-chart-line me-2"></i> Dashboard</div>
+      <div class="menu-item" onclick="showSection('orders-section', this)"><i class="fas fa-shopping-bag me-2"></i> Coffee Orders</div>
+      <div class="menu-item" onclick="showSection('bookings-section', this)"><i class="fas fa-calendar-alt me-2"></i> Manage Bookings</div>
+      <div class="menu-item" onclick="showSection('coffees-section', this)"><i class="fas fa-mug-hot me-2"></i> Manage Coffees</div>
+      <hr style="border-color: var(--espresso-light);">
+      <a href="index.html" class="menu-item text-decoration-none"><i class="fas fa-home me-2"></i> Exit Website</a>
+      <button class="btn btn-outline-danger w-100 mt-3" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="main-content">
+      <div id="dashboard" class="section active">
+        <h2 class="mb-4" style="color: var(--gold); font-weight: 300;">Control Panel</h2>
+        <div class="row g-4">
+          <div class="col-md-4"><div class="card-stat"><h1 id="orderCount">0</h1><p>Live Orders</p></div></div>
+          <div class="col-md-4"><div class="card-stat"><h1 id="coffeeCount">0</h1><p>Menu Items</p></div></div>
+          <div class="col-md-4"><div class="card-stat"><h1 id="bookingCount">0</h1><p>Reservations</p></div></div>
+        </div>
+      </div>
+
+      <div id="orders-section" class="section">
+        <h4 class="mb-4" style="color: var(--gold)">Recent Coffee Orders</h4>
+        <div class="table-responsive custom-table-container">
+          <table class="table align-middle">
+            <thead>
+            <tr><th>CUSTOMER</th><th>DETAILS</th><th>LOCATION</th><th>PRICE</th><th>STATUS</th><th>ACTIONS</th></tr>
+            </thead>
+            <tbody id="ordersTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="bookings-section" class="section">
+        <h4 class="mb-4" style="color: var(--gold)">Customer Reservations</h4>
+        <div class="table-responsive custom-table-container">
+          <table class="table align-middle">
+            <thead>
+            <tr><th>GUEST</th><th>DATE & TIME</th><th>SIZE</th><th>STATUS</th><th>ACTIONS</th></tr>
+            </thead>
+            <tbody id="bookingsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="coffees-section" class="section">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="mb-0" style="color: var(--gold)">Coffee Inventory</h4>
+          <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addCoffeeModal">+ Add Coffee</button>
+        </div>
+        <div class="table-responsive custom-table-container">
+          <table class="table align-middle">
+            <thead>
+            <tr><th>ID</th><th>NAME</th><th>PRICE</th><th>CATEGORY</th><th class="text-end">ACTIONS</th></tr>
+            </thead>
+            <tbody id="coffeesTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="addCoffeeModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="color: var(--gold)">Add New Coffee Item</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="coffeeForm">
+              <div class="mb-3"><label class="form-label">Coffee Name</label><input type="text" id="cName" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label">Price ($)</label><input type="number" step="0.01" id="cPrice" class="form-control" required></div>
+              <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select id="cCategory" class="form-select">
+                  <option>Espresso</option><option>Cappuccino</option><option>Latte</option><option>Iced Coffee</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning w-100 py-2 fw-bold" style="background: var(--gold)">Save to Menu</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
+    // Logout function
+    window.logout = function() {
+      localStorage.removeItem('adminLoggedIn');
+      localStorage.removeItem('adminUsername');
+      window.location.href = 'admin-login.html';
+    };
+
+    // Initialize
+    initializeAdminPanel();
+  }
+
+  // Your existing JavaScript functions
+  const API_BASE = 'http://localhost:8080/api';
+
+  function showSection(sectionId, element) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    element.classList.add('active');
+
+    if(sectionId === 'bookings-section') loadBookings();
+    if(sectionId === 'coffees-section') loadCoffees();
+    if(sectionId === 'orders-section') loadOrders();
+    if(sectionId === 'dashboard') updateStats();
+  }
+
+  async function loadOrders() {
+    try {
+      const res = await fetch(`${API_BASE}/orders`);
+      const data = await res.json();
+      document.getElementById('orderCount').innerText = data.length;
+      document.getElementById('ordersTable').innerHTML = data.map(o => `
+        <tr>
+          <td><span style="color:var(--gold); font-weight:600;">${o.customerName || 'Guest'}</span><br><small style="color:#888;">${o.customerPhone || ''}</small></td>
+          <td>${o.orderDetails || 'Custom Brew'}</td>
+          <td><small>${o.deliveryAddress || 'No Address'}</small></td>
+          <td><span style="color:#28a745; font-weight:bold;">$${parseFloat(o.totalPrice || 0).toFixed(2)}</span></td>
+          <td><span class="status-badge status-pending">${o.status || 'PENDING'}</span></td>
+          <td>
+            <button class="action-btn" onclick="deleteOrder(${o.id})"><i class="fas fa-check"></i></button>
+          </td>
+        </tr>`).join('');
+    } catch (e) { console.error(e); }
+  }
+
+  async function loadBookings() {
+    try {
+      const res = await fetch(`${API_BASE}/bookings`);
+      const data = await res.json();
+      document.getElementById('bookingCount').innerText = data.length;
+      document.getElementById('bookingsTable').innerHTML = data.map(b => {
+        let statusClass = (b.status || 'PENDING').toLowerCase() === 'confirmed' ? 'status-confirmed' : 'status-pending';
+        return `
+        <tr>
+          <td><span style="color:var(--gold); font-weight:600;">${b.fullName}</span><br><small style="color:#888;">${b.email}</small></td>
+          <td>${b.bookingDate}<br><small style="color:#888;">at ${b.preferredTime}</small></td>
+          <td>${b.numberOfGuests} People</td>
+          <td><span class="status-badge ${statusClass}">${b.status}</span></td>
+          <td>
+            <button class="action-btn" onclick="updateBookingStatus(${b.id}, 'CONFIRMED')"><i class="fas fa-check"></i></button>
+            <button class="action-btn delete-btn" onclick="deleteBooking(${b.id})"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>`;
+      }).join('');
+    } catch (e) { console.error(e); }
+  }
+
+  async function loadCoffees() {
+    try {
+      const res = await fetch(`${API_BASE}/coffees`);
+      const data = await res.json();
+      document.getElementById('coffeeCount').innerText = data.length;
+      document.getElementById('coffeesTable').innerHTML = data.map(c => `
+        <tr>
+          <td>#${c.id}</td>
+          <td style="color:var(--gold);">${c.name}</td>
+          <td>$${parseFloat(c.price).toFixed(2)}</td>
+          <td>${c.category}</td>
+          <td class="text-end">
+            <button class="action-btn delete-btn" onclick="deleteCoffee(${c.id})"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>`).join('');
+    } catch (e) { console.error(e); }
+  }
+
+  async function updateBookingStatus(id, status) {
+    await fetch(`${API_BASE}/bookings/${id}/status?status=${status}`, { method: 'PATCH' });
+    loadBookings();
+  }
+
+  async function deleteOrder(id) { if(confirm("Complete?")) { await fetch(`${API_BASE}/orders/${id}`, { method: 'DELETE' }); loadOrders(); } }
+  async function deleteBooking(id) { if(confirm("Delete?")) { await fetch(`${API_BASE}/bookings/${id}`, { method: 'DELETE' }); loadBookings(); } }
+  async function deleteCoffee(id) { if(confirm("Delete?")) { await fetch(`${API_BASE}/coffees/${id}`, { method: 'DELETE' }); loadCoffees(); } }
+
+  document.addEventListener('submit', async function(e) {
+    if (e.target && e.target.id === 'coffeeForm') {
+      e.preventDefault();
+      const coffee = {
+        name: document.getElementById('cName').value,
+        price: document.getElementById('cPrice').value,
+        category: document.getElementById('cCategory').value
+      };
+      await fetch(`${API_BASE}/coffees`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(coffee)
+      });
+      bootstrap.Modal.getInstance(document.getElementById('addCoffeeModal')).hide();
+      loadCoffees();
+    }
+  });
+
+  async function updateStats() { loadOrders(); loadCoffees(); loadBookings(); }
+
+  function initializeAdminPanel() {
+    updateStats();
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

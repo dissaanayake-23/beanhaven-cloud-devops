@@ -1,0 +1,93 @@
+/* About Page Styles */
+.about-hero {
+    background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.95)), 
+                url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    padding: 60px 40px;
+    margin-bottom: 30px;
+    color: white;
+    text-align: center;
+}
+
+.team-card {
+    transition: transform 0.3s;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.team-avatar {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #D2691E 0%, #8B4513 100%);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+}
+
+.value-card {
+    background: rgba(255, 248, 220, 0.1);
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    height: 100%;
+    transition: all 0.3s;
+}
+
+.value-card:hover {
+    background: rgba(255, 248, 220, 0.15);
+    transform: translateY(-3px);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #D2691E;
+}
+
+.dark-brown-card {
+    background: #5D4037;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.medium-brown-card {
+    background: #4E342E;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.text-cream {
+    color: #FFF8DC !important;
+}
+
+.text-light-brown {
+    color: #D2691E !important;
+}
+
+.bg-dark-brown {
+    background-color: #3E2723 !important;
+}
+
+.bg-medium-brown {
+    background-color: #5D4037 !important;
+}
+
+.bg-light-brown {
+    background-color: #8B4513 !important;
+}

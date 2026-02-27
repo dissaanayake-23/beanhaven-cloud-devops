@@ -13,25 +13,23 @@ public class CoffeeService {
     @Autowired
     private CoffeeRepository coffeeRepository;
 
-    // Get all coffees
     public List<Coffee> getAllCoffees() {
         return coffeeRepository.findAll();
     }
 
-    // Get coffee by ID
     public Coffee getCoffeeById(Long id) {
-        Optional<Coffee> coffee = coffeeRepository.findById(id);
-        return coffee.orElseThrow(() -> new RuntimeException("Coffee not found with id: " + id));
+        return coffeeRepository.findById(id).orElse(null);
     }
 
-    // Create new coffee
     public Coffee createCoffee(Coffee coffee) {
         return coffeeRepository.save(coffee);
     }
 
-    // Update coffee
     public Coffee updateCoffee(Long id, Coffee coffeeDetails) {
         Coffee coffee = getCoffeeById(id);
+        if (coffee == null) {
+            return null;
+        }
 
         if (coffeeDetails.getName() != null) {
             coffee.setName(coffeeDetails.getName());
@@ -61,23 +59,22 @@ public class CoffeeService {
         return coffeeRepository.save(coffee);
     }
 
-    // Delete coffee
-    public void deleteCoffee(Long id) {
-        Coffee coffee = getCoffeeById(id);
-        coffeeRepository.delete(coffee);
+    public boolean deleteCoffee(Long id) {
+        if (coffeeRepository.existsById(id)) {
+            coffeeRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
-    // Get coffees by category
     public List<Coffee> getCoffeesByCategory(String category) {
         return coffeeRepository.findByCategory(category);
     }
 
-    // Get available coffees
     public List<Coffee> getAvailableCoffees() {
         return coffeeRepository.findByAvailableTrue();
     }
 
-    // Search coffees by name
     public List<Coffee> searchCoffees(String keyword) {
         return coffeeRepository.findByNameContainingIgnoreCase(keyword);
     }

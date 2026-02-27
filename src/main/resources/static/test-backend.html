@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<body style="padding: 20px; font-family: Arial;">
+<h1>🔧 Backend Connection Test</h1>
+
+<div style="margin: 20px 0;">
+    <button onclick="testEndpoint('/api/coffees', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /api/coffees
+    </button>
+    <button onclick="testEndpoint('/coffees', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /coffees
+    </button>
+    <button onclick="testEndpoint('/api/coffee', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /api/coffee
+    </button>
+    <button onclick="testEndpoint('/coffee', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /coffee
+    </button>
+</div>
+
+<h3>Common Coffee Shop Endpoints to Test:</h3>
+<div style="margin: 20px 0;">
+    <button onclick="testEndpoint('/api/menu', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /api/menu
+    </button>
+    <button onclick="testEndpoint('/menu', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /menu
+    </button>
+    <button onclick="testEndpoint('/api/products', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /api/products
+    </button>
+    <button onclick="testEndpoint('/products', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /products
+    </button>
+</div>
+
+<h3>Test Root Endpoints:</h3>
+<div style="margin: 20px 0;">
+    <button onclick="testEndpoint('/', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET / (root)
+    </button>
+    <button onclick="testEndpoint('/api', 'GET')" style="padding: 10px; margin: 5px;">
+        Test GET /api
+    </button>
+</div>
+
+<div id="result" style="margin-top: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; min-height: 100px; background: #f9f9f9;">
+    Click a button above to test endpoints...
+</div>
+
+<script>
+    async function testEndpoint(url, method) {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `<div style="color: blue;">⏳ Testing ${method} ${url}...</div>`;
+
+        try {
+            const response = await fetch(url, { method: method });
+
+            if (response.ok) {
+                try {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `<div style="color: green;">
+                            ✅ SUCCESS: ${method} ${url} WORKING!<br>
+                            Status: ${response.status}<br>
+                            Response (first 500 chars):<br>
+                            <pre style="background: white; padding: 10px; border: 1px solid #ddd; overflow: auto; max-height: 300px;">${JSON.stringify(data, null, 2).substring(0, 500)}</pre>
+                        </div>`;
+                } catch (e) {
+                    // If response is not JSON
+                    const text = await response.text();
+                    resultDiv.innerHTML = `<div style="color: green;">
+                            ✅ SUCCESS: ${method} ${url} WORKING!<br>
+                            Status: ${response.status}<br>
+                            Response: ${text.substring(0, 200)}
+                        </div>`;
+                }
+            } else if (response.status === 404) {
+                resultDiv.innerHTML = `<div style="color: orange;">
+                            ⚠️ ENDPOINT NOT FOUND: ${method} ${url}<br>
+                            Status: 404 (Not Found)<br>
+                            This endpoint doesn't exist in your backend.
+                        </div>`;
+            } else {
+                resultDiv.innerHTML = `<div style="color: red;">
+                        ❌ ERROR: ${method} ${url}<br>
+                        Status: ${response.status} ${response.statusText}
+                    </div>`;
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `<div style="color: red;">
+                    ❌ NETWORK ERROR: ${method} ${url}<br>
+                    Error: ${error.message}<br>
+                    <br>
+                    <strong>Possible causes:</strong><br>
+                    1. Spring Boot is not running<br>
+                    2. CORS issue (try different browser)<br>
+                    3. Wrong port (should be 8080)
+                </div>`;
+        }
+    }
+</script>
+</body>
+</html>

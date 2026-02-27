@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Order</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { padding: 10px; margin: 5px; background: #6F4E37; color: white; border: none; }
+        .result { background: #f0f0f0; padding: 15px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+<h1>Test Order Placement</h1>
+
+<button onclick="testOrder()">Test Create Order</button>
+<button onclick="testGetOrders()">Test Get Orders</button>
+<button onclick="testGetCoffees()">Test Get Coffees</button>
+
+<div id="result"></div>
+
+<script>
+    const API_URL = 'http://localhost:8080';
+
+    async function testOrder() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = 'Creating test order...';
+
+        try {
+            // First get a coffee
+            const coffeesRes = await fetch(API_URL + '/api/coffees');
+            const coffees = await coffeesRes.json();
+
+            if (coffees.length === 0) {
+                throw new Error('No coffees found');
+            }
+
+            const coffee = coffees[0];
+
+            // Create order
+            const orderData = {
+                customerName: "Test Customer",
+                customerEmail: "test@test.com",
+                customerPhone: "1234567890",
+                totalPrice: coffee.price * 2,
+                status: "PENDING",
+                deliveryAddress: "Test Address"
+            };
+
+            const orderRes = await fetch(API_URL + '/api/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            });
+
+            const resultText = await orderRes.text();
+
+            if (orderRes.ok) {
+                resultDiv.innerHTML = `
+                        <div style="background: #d4edda; padding: 15px;">
+                            <h3>✅ Order Created Successfully!</h3>
+                            <pre>${resultText}</pre>
+                        </div>
+                    `;
+            } else {
+                resultDiv.innerHTML = `
+                        <div style="background: #f8d7da; padding: 15px;">
+                            <h3>❌ Order Failed (${orderRes.status})</h3>
+                            <pre>${resultText}</pre>
+                        </div>
+                    `;
+            }
+
+        } catch (error) {
+            resultDiv.innerHTML = `
+                    <div style="background: #f8d7da; padding: 15px;">
+                        <h3>❌ Error</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+        }
+    }
+
+    async function testGetOrders() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = 'Fetching orders...';
+
+        try {
+            const response = await fetch(API_URL + '/api/orders');
+            const data = await response.json();
+
+            resultDiv.innerHTML = `
+                    <div style="background: #d1ecf1; padding: 15px;">
+                        <h3>Orders (${data.length})</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+        } catch (error) {
+            resultDiv.innerHTML = `<div style="color: red;">Error: ${error.message}</div>`;
+        }
+    }
+
+    async function testGetCoffees() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = 'Fetching coffees...';
+
+        try {
+            const response = await fetch(API_URL + '/api/coffees');
+            const data = await response.json();
+
+            resultDiv.innerHTML = `
+                    <div style="background: #d1ecf1; padding: 15px;">
+                        <h3>Coffees (${data.length})</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+        } catch (error) {
+            resultDiv.innerHTML = `<div style="color: red;">Error: ${error.message}</div>`;
+        }
+    }
+</script>
+</body>
+</html>
