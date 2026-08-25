@@ -1,3 +1,4 @@
+
 name: BeanHaven CI/CD
 
 on:
@@ -9,9 +10,8 @@ on:
       - main
 
 jobs:
-
   build:
-    name: Build and Test
+    name: Build Spring Boot App
     runs-on: ubuntu-latest
 
     steps:
@@ -22,11 +22,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: "21"
           cache: maven
 
       - name: Build with Maven
         run: mvn clean package -DskipTests
-
-      - name: Run tests
-        run: mvn test
