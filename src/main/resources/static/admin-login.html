@@ -1,190 +1,731 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login - Bean Haven Coffee Shop</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Admin Portal - Bean Haven</title>
+
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+  >
+
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
   <style>
+
     :root {
-      --primary-brown: #8B4513;
-      --light-brown: #D2691E;
-      --dark-brown: #5D4037;
+      --coffee-brown: #6F4E37;
+      --dark-brown: #3E2723;
+      --light-coffee: #A67B5B;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background:
+              linear-gradient(
+                      135deg,
+                      #f5f0e6 0%,
+                      #e8dfd0 100%
+              );
+
       min-height: 100vh;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
+      font-family:
+              'Segoe UI',
+              Tahoma,
+              Geneva,
+              Verdana,
+              sans-serif;
+
       padding: 20px;
     }
 
-    .login-container {
-      max-width: 400px;
-      width: 100%;
-    }
-
-    .login-card {
+    .admin-portal-card {
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      overflow: hidden;
-    }
 
-    .login-header {
-      background: linear-gradient(135deg, var(--dark-brown) 0%, var(--primary-brown) 100%);
-      color: white;
-      padding: 30px;
+      border-radius: 20px;
+
+      padding: 50px;
+
+      box-shadow:
+              0 20px 50px rgba(0, 0, 0, 0.1);
+
       text-align: center;
-    }
 
-    .login-header h2 {
-      margin: 0;
-      font-weight: 700;
-    }
-
-    .login-header p {
-      opacity: 0.9;
-      margin: 10px 0 0;
-    }
-
-    .login-body {
-      padding: 30px;
-    }
-
-    .form-control:focus {
-      border-color: var(--primary-brown);
-      box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
-    }
-
-    .btn-login {
-      background: linear-gradient(135deg, var(--primary-brown) 0%, var(--light-brown) 100%);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: 600;
+      max-width: 500px;
       width: 100%;
+
+      border-top:
+              8px solid var(--coffee-brown);
+    }
+
+    .admin-icon {
+      font-size: 5rem;
+
+      color:
+              var(--coffee-brown);
+
+      margin-bottom: 25px;
+    }
+
+    .btn-admin {
+      background:
+              linear-gradient(
+                      135deg,
+                      var(--coffee-brown) 0%,
+                      var(--dark-brown) 100%
+              );
+
+      color: white;
+
+      border: none;
+
+      padding: 14px 35px;
+
+      border-radius: 10px;
+
+      font-weight: 600;
+
+      font-size: 1.1rem;
+
       transition: all 0.3s;
+
+      display: block;
+
+      width: 100%;
+
+      margin: 15px 0;
     }
 
-    .btn-login:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+    .btn-admin:hover {
+      transform:
+              translateY(-3px);
+
+      box-shadow:
+              0 10px 20px
+              rgba(111, 78, 55, 0.3);
+
+      color: white;
     }
 
-    .alert {
-      margin-top: 20px;
+    .btn-outline-admin {
+      border:
+              2px solid var(--coffee-brown);
+
+      color:
+              var(--coffee-brown);
+
+      background: transparent;
+
+      padding: 14px 35px;
+
+      border-radius: 10px;
+
+      font-weight: 600;
+
+      font-size: 1.1rem;
+
+      transition: all 0.3s;
+
+      display: block;
+
+      width: 100%;
+
+      margin: 15px 0;
     }
 
-    .back-home {
-      text-align: center;
-      margin-top: 20px;
+    .btn-outline-admin:hover {
+      background:
+              var(--coffee-brown);
+
+      color: white;
     }
 
-    .back-home a {
-      color: var(--primary-brown);
-      text-decoration: none;
+    .status-badge {
+      display: inline-block;
+
+      padding: 8px 15px;
+
+      border-radius: 20px;
+
+      font-size: 0.9rem;
+
+      font-weight: 600;
+
+      margin: 10px 0;
     }
 
-    .back-home a:hover {
-      text-decoration: underline;
+    .status-logged-in {
+      background: #e8f5e9;
+      color: #2e7d32;
     }
+
+    .status-logged-out {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .admin-features {
+      background: #f8f9fa;
+
+      border-radius: 15px;
+
+      padding: 25px;
+
+      margin: 30px 0;
+
+      text-align: left;
+    }
+
+    .admin-features h5 {
+      color:
+              var(--dark-brown);
+
+      margin-bottom: 15px;
+
+      border-bottom:
+              2px solid var(--coffee-brown);
+
+      padding-bottom: 8px;
+    }
+
+    .feature-item {
+      display: flex;
+
+      align-items: center;
+
+      margin: 10px 0;
+
+      padding: 8px 0;
+    }
+
+    .feature-item i {
+      color:
+              var(--coffee-brown);
+
+      margin-right: 10px;
+
+      font-size: 1.1rem;
+    }
+
   </style>
+
 </head>
+
+
 <body>
-<div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
-      <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
-      <p>Bean Haven Coffee Shop</p>
-    </div>
 
-    <div class="login-body">
-      <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
 
-      <form id="loginForm">
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-            <input type="text" class="form-control" id="username" placeholder="Enter username" required>
-          </div>
-        </div>
+<div class="admin-portal-card">
 
-        <div class="mb-4">
-          <label for="password" class="form-label">Password</label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-          </div>
-        </div>
 
-        <button type="submit" class="btn btn-login">
-          <i class="fas fa-sign-in-alt me-2"></i> Login
-        </button>
-      </form>
+  <!-- =====================================================
+       ICON
+  ====================================================== -->
 
-      <div class="back-home mt-4">
-        <a href="index.html"><i class="fas fa-home me-2"></i>Back to Home Page</a>
-      </div>
-    </div>
+  <div class="admin-icon">
+
+    <i class="fas fa-user-shield"></i>
+
   </div>
+
+
+  <h1
+          class="mb-3"
+          style="color: var(--dark-brown);"
+  >
+    Bean Haven Admin Portal
+  </h1>
+
+
+  <p class="text-muted mb-4">
+    Secure staff access portal
+  </p>
+
+
+  <!-- =====================================================
+       AUTH STATUS
+  ====================================================== -->
+
+  <div
+          id="authStatus"
+          class="mb-4"
+  >
+  </div>
+
+
+  <!-- =====================================================
+       MESSAGE
+  ====================================================== -->
+
+  <div
+          id="message"
+          class="alert"
+          style="
+                display: none;
+                border-radius: 10px;
+            "
+  >
+  </div>
+
+
+  <!-- =====================================================
+       LOGGED IN SECTION
+  ====================================================== -->
+
+  <div
+          id="loggedInSection"
+          style="display: none;"
+  >
+
+    <div class="admin-features">
+
+      <h5>
+
+        <i class="fas fa-cogs me-2"></i>
+
+        Admin Features
+
+      </h5>
+
+
+      <div class="feature-item">
+
+        <i class="fas fa-mug-hot"></i>
+
+        <span>
+                    Add / Edit / Delete Coffee Items
+                </span>
+
+      </div>
+
+
+      <div class="feature-item">
+
+        <i class="fas fa-list-alt"></i>
+
+        <span>
+                    Manage Coffee Categories
+                </span>
+
+      </div>
+
+
+      <div class="feature-item">
+
+        <i class="fas fa-shopping-cart"></i>
+
+        <span>
+                    View Customer Orders
+                </span>
+
+      </div>
+
+
+      <div class="feature-item">
+
+        <i class="fas fa-chart-line"></i>
+
+        <span>
+                    View Sales Analytics
+                </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="d-grid gap-3">
+
+
+      <a
+              href="/admin-panel.html"
+              class="btn btn-admin"
+      >
+
+        <i
+                class="fas fa-tachometer-alt me-2"
+        ></i>
+
+        Go to Admin Dashboard
+
+      </a>
+
+
+      <a
+              href="/menu.html"
+              class="btn btn-outline-admin"
+      >
+
+        <i
+                class="fas fa-eye me-2"
+        ></i>
+
+        View Customer Menu
+
+      </a>
+
+
+      <a
+              href="/index.html"
+              class="btn btn-outline-secondary"
+      >
+
+        <i
+                class="fas fa-home me-2"
+        ></i>
+
+        Back to Homepage
+
+      </a>
+
+
+      <button
+              type="button"
+              onclick="logout()"
+              class="btn btn-danger mt-3"
+      >
+
+        <i
+                class="fas fa-sign-out-alt me-2"
+        ></i>
+
+        Logout from Admin
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       LOGGED OUT SECTION
+  ====================================================== -->
+
+  <div
+          id="loggedOutSection"
+          style="display: none;"
+  >
+
+    <div
+            class="alert alert-info"
+            style="
+                    border-radius: 10px;
+                    border-left:
+                        4px solid var(--coffee-brown);
+                "
+    >
+
+      <i
+              class="fas fa-info-circle me-2"
+      ></i>
+
+      <strong>
+        Restricted Access:
+      </strong>
+
+      This area is for authorized staff only.
+
+    </div>
+
+
+    <div class="d-grid gap-3">
+
+
+      <a
+              href="/admin-login.html"
+              class="btn btn-admin"
+      >
+
+        <i
+                class="fas fa-sign-in-alt me-2"
+        ></i>
+
+        Login to Admin Dashboard
+
+      </a>
+
+
+      <a
+              href="/index.html"
+              class="btn btn-outline-admin"
+      >
+
+        <i
+                class="fas fa-arrow-left me-2"
+        ></i>
+
+        Return to Customer Website
+
+      </a>
+
+
+    </div>
+
+  </div>
+
+
 </div>
 
+
 <script>
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const errorDiv = document.getElementById('errorMessage');
+  // =====================================================
+  // ELEMENTS
+  // =====================================================
 
-    errorDiv.style.display = 'none';
+  const loggedInSection =
+          document.getElementById(
+                  "loggedInSection"
+          );
 
-    if (!username || !password) {
-      errorDiv.textContent = 'Please enter both username and password';
-      errorDiv.style.display = 'block';
+  const loggedOutSection =
+          document.getElementById(
+                  "loggedOutSection"
+          );
+
+  const authStatus =
+          document.getElementById(
+                  "authStatus"
+          );
+
+  const messageDiv =
+          document.getElementById(
+                  "message"
+          );
+
+
+  // =====================================================
+  // CHECK ADMIN SESSION
+  // =====================================================
+
+  function checkAuthStatus() {
+
+    const loggedIn =
+            sessionStorage.getItem(
+                    "adminLoggedIn"
+            );
+
+    const adminUsername =
+            sessionStorage.getItem(
+                    "adminUsername"
+            );
+
+    const adminRole =
+            sessionStorage.getItem(
+                    "adminRole"
+            );
+
+
+    if (
+            loggedIn === "true" &&
+            adminUsername &&
+            adminRole === "ADMIN"
+    ) {
+
+      loggedInSection.style.display =
+              "block";
+
+      loggedOutSection.style.display =
+              "none";
+
+
+      authStatus.innerHTML = `
+                <div
+                    class="status-badge
+                           status-logged-in"
+                >
+
+                    <i
+                        class="fas
+                               fa-check-circle
+                               me-1"
+                    ></i>
+
+                    Logged in as:
+
+                    <strong>
+                        ${escapeHtml(adminUsername)}
+                    </strong>
+
+                </div>
+            `;
+
+    } else {
+
+      loggedInSection.style.display =
+              "none";
+
+      loggedOutSection.style.display =
+              "block";
+
+
+      authStatus.innerHTML = `
+                <div
+                    class="status-badge
+                           status-logged-out"
+                >
+
+                    <i
+                        class="fas
+                               fa-lock
+                               me-1"
+                    ></i>
+
+                    Authentication Required
+
+                </div>
+            `;
+    }
+  }
+
+
+  // =====================================================
+  // LOGOUT
+  // =====================================================
+
+  function logout() {
+
+    const confirmed =
+            confirm(
+                    "Are you sure you want to logout?"
+            );
+
+
+    if (!confirmed) {
       return;
     }
 
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Logging in...';
 
-    setTimeout(() => {
-      const validCredentials = (
-              (username === 'admin' && password === 'admin123') ||
-              (username === 'beanhaven' && password === 'coffee123') ||
-              (username === 'administrator' && password === 'password')
-      );
+    sessionStorage.removeItem(
+            "adminLoggedIn"
+    );
 
-      if (validCredentials) {
-        localStorage.setItem('adminLoggedIn', 'true');
-        localStorage.setItem('adminUsername', username);
-        window.location.href = 'admin-panel.html';
-      } else {
-        errorDiv.textContent = 'Invalid username or password';
-        errorDiv.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-      }
-    }, 1000);
-  });
+    sessionStorage.removeItem(
+            "adminUsername"
+    );
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const isLoggedIn = localStorage.getItem('adminLoggedIn');
-    if (isLoggedIn === 'true') {
-      window.location.href = 'admin-panel.html';
-    }
-    document.getElementById('username').value = 'admin';
-    document.getElementById('password').value = 'admin123';
-  });
+    sessionStorage.removeItem(
+            "adminRole"
+    );
+
+
+    showMessage(
+            "Logged out successfully.",
+            "success"
+    );
+
+
+    setTimeout(
+            function () {
+
+              window.location.href =
+                      "/admin-login.html";
+
+            },
+            700
+    );
+  }
+
+
+  // =====================================================
+  // SHOW MESSAGE
+  // =====================================================
+
+  function showMessage(
+          text,
+          type
+  ) {
+
+    messageDiv.textContent =
+            text;
+
+    messageDiv.className =
+            `alert alert-${type}`;
+
+    messageDiv.style.display =
+            "block";
+
+
+    setTimeout(
+            function () {
+
+              messageDiv.style.display =
+                      "none";
+
+            },
+            3000
+    );
+  }
+
+
+  // =====================================================
+  // BASIC HTML ESCAPE
+  // =====================================================
+
+  function escapeHtml(value) {
+
+    return String(value)
+
+            .replaceAll(
+                    "&",
+                    "&amp;"
+            )
+
+            .replaceAll(
+                    "<",
+                    "&lt;"
+            )
+
+            .replaceAll(
+                    ">",
+                    "&gt;"
+            )
+
+            .replaceAll(
+                    '"',
+                    "&quot;"
+            )
+
+            .replaceAll(
+                    "'",
+                    "&#039;"
+            );
+  }
+
+
+  // =====================================================
+  // PAGE LOAD
+  // =====================================================
+
+  document.addEventListener(
+          "DOMContentLoaded",
+          function () {
+
+            checkAuthStatus();
+
+          }
+  );
+
+
 </script>
+
+
 </body>
+
 </html>

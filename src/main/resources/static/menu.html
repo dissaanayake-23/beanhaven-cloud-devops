@@ -2,12 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Menu | Bean Haven</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+
         :root {
             --espresso-dark: #1a1412;
             --espresso-light: #2c2420;
@@ -16,17 +30,25 @@
         }
 
         body {
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
-            url('https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg');
+            background:
+                    linear-gradient(
+                            rgba(0,0,0,0.93),
+                            rgba(0,0,0,0.93)
+                    ),
+                    url('https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg');
+
             background-size: cover;
             background-attachment: fixed;
+
             font-family: 'Poppins', sans-serif;
+
             color: white;
+
             min-height: 100vh;
         }
 
         .navbar {
-            background: rgba(26, 20, 18, 0.95) !important;
+            background: rgba(26, 20, 18, 0.96) !important;
             padding: 20px 0;
             border-bottom: 1px solid var(--espresso-light);
         }
@@ -51,13 +73,13 @@
 
         .menu-header {
             text-align: center;
-            padding: 40px 0 30px;
+            padding: 45px 0 30px;
         }
 
         .menu-header h1 {
             font-family: 'Playfair Display', serif;
             color: var(--gold);
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             margin-bottom: 10px;
         }
 
@@ -66,12 +88,11 @@
             font-style: italic;
         }
 
-        /* Category Filter Buttons */
         .category-filter {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
             flex-wrap: wrap;
         }
 
@@ -96,105 +117,330 @@
             font-weight: 600;
         }
 
+        /* =====================================================
+    HORIZONTAL COFFEE CARD - FIXED SMALL VERSION
+    ===================================================== */
+
         .coffee-card {
-            background: var(--espresso-dark);
-            border: 1px solid var(--espresso-light);
-            border-radius: 15px;
+            background: linear-gradient(
+                    135deg,
+                    #171210,
+                    #1c1512
+            );
+
+            border: 1px solid #493a2c;
+            border-radius: 18px;
             overflow: hidden;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            height: 100%;
+
+            /* FIXED SIZE */
+            height: 280px;
+            width: 100%;
+
+            display: flex;
+
+            transition: all 0.35s ease;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
         }
+
+
+        /* HOVER EFFECT */
 
         .coffee-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+
+            box-shadow:
+                    0 15px 35px rgba(212, 175, 55, 0.18);
         }
 
-        .img-container {
-            width: 100%;
-            height: 200px;
+
+        /* =====================================================
+           LEFT SIDE - COFFEE DETAILS
+           ===================================================== */
+
+        .coffee-info {
+            width: 50%;
+            height: 100%;
+
+            padding: 24px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* =====================================================
+           RIGHT SIDE - COFFEE IMAGE
+           ===================================================== */
+
+        .coffee-image-side {
+            width: 50%;
+            height: 280px;
+
             overflow: hidden;
+
+            background: #120e0c;
         }
 
-        .img-container img {
+
+        /* IMAGE */
+
+        .coffee-image-side img {
             width: 100%;
             height: 100%;
+
             object-fit: cover;
+            object-position: center;
+
+            display: block;
+
             transition: transform 0.5s ease;
         }
 
-        .coffee-card:hover .img-container img {
-            transform: scale(1.1);
+
+        /* IMAGE HOVER */
+
+        .coffee-card:hover .coffee-image-side img {
+            transform: scale(1.05);
         }
 
-        .card-content {
-            padding: 20px;
-        }
+
+        /* =====================================================
+           COFFEE NAME
+           ===================================================== */
 
         .coffee-name {
             font-family: 'Playfair Display', serif;
+
             color: var(--gold);
-            font-size: 1.2rem;
+
+            font-size: 1.35rem;
             font-weight: 700;
+
+            margin-bottom: 8px;
         }
+
+
+        /* =====================================================
+           CATEGORY
+           ===================================================== */
 
         .coffee-category {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.7rem;
+            display: inline-block;
+            width: fit-content;
+
+            color: rgba(255, 255, 255, 0.65);
+
+            font-size: 0.62rem;
+
             text-transform: uppercase;
-            letter-spacing: 1px;
+
+            letter-spacing: 1.2px;
+
             background: var(--espresso-light);
-            padding: 3px 10px;
-            border-radius: 15px;
+
+            padding: 5px 11px;
+
+            border-radius: 20px;
+
+            margin-bottom: 14px;
         }
+
+
+        /* =====================================================
+           GOLD DIVIDER
+           ===================================================== */
+
+        .coffee-divider {
+            width: 55px;
+            height: 1px;
+
+            background: var(--gold);
+
+            margin-bottom: 14px;
+
+            opacity: 0.8;
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+           ===================================================== */
 
         .coffee-desc {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.8rem;
-            margin: 10px 0;
+            color: rgba(255, 255, 255, 0.75);
+
+            font-size: 0.80rem;
+
             line-height: 1.5;
+
+            margin-bottom: 15px;
         }
+
+
+        /* =====================================================
+           PRICE
+           ===================================================== */
 
         .price-tag {
-            font-size: 1.3rem;
+            font-size: 1.45rem;
+
             color: var(--gold);
+
             font-weight: 600;
+
+            margin-bottom: 14px;
         }
 
+
+        /* =====================================================
+           ORDER BUTTON
+           ===================================================== */
+
         .btn-order {
+            width: fit-content;
+
             background: transparent;
+
             border: 1px solid var(--gold);
+
             color: var(--gold);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+
+            padding: 8px 18px;
+
+            border-radius: 25px;
+
+            font-size: 0.70rem;
+
             text-transform: uppercase;
+
             letter-spacing: 1px;
+
             transition: all 0.3s ease;
         }
 
+
         .btn-order:hover {
             background: var(--gold);
+
             color: var(--espresso-dark);
+
+            transform: translateY(-2px);
         }
 
-        /* Modal Styles */
+
+        /* =====================================================
+           TABLET / MOBILE
+           ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .coffee-card {
+                height: auto;
+                flex-direction: column-reverse;
+            }
+
+            .coffee-info {
+                width: 100%;
+                height: auto;
+                padding: 22px;
+            }
+
+            .coffee-image-side {
+                width: 100%;
+                height: 220px;
+            }
+
+            .coffee-image-side img {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+            }
+        }
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 991px) {
+
+            .coffee-card {
+                min-height: 300px;
+            }
+
+            .coffee-info {
+                width: 50%;
+                padding: 24px;
+            }
+
+            .coffee-image-side {
+                width: 50%;
+                min-height: 300px;
+            }
+
+            .coffee-image-side img {
+                min-height: 300px;
+            }
+
+            .coffee-name {
+                font-size: 1.45rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .coffee-card {
+                flex-direction: column-reverse;
+            }
+
+            .coffee-info {
+                width: 100%;
+                padding: 25px;
+            }
+
+            .coffee-image-side {
+                width: 100%;
+                height: 240px;
+                min-height: 240px;
+            }
+
+            .coffee-image-side img {
+                height: 240px;
+                min-height: 240px;
+            }
+        }
+
+        /* =====================================================
+           ORDER MODAL
+           ===================================================== */
+
         .modal-content {
             background: var(--espresso-dark);
-            border: 1px solid var(--gold);
+
+            border:
+                    1px solid var(--gold);
+
             border-radius: 15px;
         }
 
         .modal-header {
-            border-bottom: 1px solid var(--espresso-light);
+            border-bottom:
+                    1px solid var(--espresso-light);
+
             padding: 20px;
         }
 
         .modal-title {
             color: var(--gold);
-            font-family: 'Playfair Display', serif;
+
+            font-family:
+                    'Playfair Display',
+                    serif;
         }
 
         .modal-body {
@@ -203,363 +449,1878 @@
 
         .form-label {
             color: var(--gold);
+
             font-size: 0.75rem;
+
             text-transform: uppercase;
+
             letter-spacing: 1px;
+
             margin-bottom: 5px;
         }
 
         .form-control {
-            background: var(--espresso-light);
-            border: 1px solid #3d3430;
+            background:
+                    var(--espresso-light);
+
+            border:
+                    1px solid #3d3430;
+
             color: white;
-            padding: 10px 15px;
+
+            padding:
+                    10px 15px;
+
             border-radius: 8px;
         }
 
         .form-control:focus {
             border-color: var(--gold);
-            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.1);
+
+            box-shadow:
+                    0 0 0 0.2rem
+                    rgba(212,175,55,0.1);
+
+            background:
+                    var(--espresso-light);
+
+            color: white;
         }
 
         .form-control[readonly] {
-            background: #2c2420;
+            background:
+                    #2c2420;
+
             color: var(--gold);
         }
 
         .btn-confirm {
             background: var(--gold);
-            color: var(--espresso-dark);
+
+            color:
+                    var(--espresso-dark);
+
             border: none;
+
             padding: 12px;
+
             font-weight: 600;
+
             text-transform: uppercase;
+
             letter-spacing: 1px;
+
             border-radius: 8px;
-            transition: all 0.3s ease;
+
+            transition:
+                    all 0.3s ease;
         }
 
         .btn-confirm:hover {
             background: white;
-            transform: translateY(-2px);
+
+            transform:
+                    translateY(-2px);
         }
 
         .alert-message {
             display: none;
+
             padding: 10px;
+
             margin-bottom: 15px;
+
             border-radius: 5px;
+
             font-size: 0.9rem;
         }
 
         .alert-success {
-            background: rgba(40, 167, 69, 0.2);
-            border: 1px solid #28a745;
-            color: #28a745;
+            background:
+                    rgba(40,167,69,0.2);
+
+            border:
+                    1px solid #28a745;
+
+            color:
+                    #28a745;
         }
 
         .alert-error {
-            background: rgba(220, 53, 69, 0.2);
-            border: 1px solid #dc3545;
-            color: #dc3545;
+            background:
+                    rgba(220,53,69,0.2);
+
+            border:
+                    1px solid #dc3545;
+
+            color:
+                    #dc3545;
         }
+        /* =========================
+   CART BUTTON
+   ========================= */
+
+        .cart-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #d9b84c;
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            padding: 10px 16px;
+            border: 1px solid #d9b84c;
+            border-radius: 20px;
+
+            transition: 0.3s;
+        }
+
+        .cart-top:hover {
+            background: #d9b84c;
+            color: #000;
+        }
+
+        #cartCount {
+            background: #d9b84c;
+            color: #000;
+
+            width: 21px;
+            height: 21px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .cart-top:hover #cartCount {
+            background: #000;
+            color: #d9b84c;
+        }
+        /* =========================
+   CART PANEL
+   ========================= */
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -420px;
+
+            width: 400px;
+            max-width: 90%;
+            height: 100vh;
+
+            background: #171210;
+            border-left: 1px solid #d9b84c;
+
+            padding: 25px;
+
+            z-index: 9999;
+
+            transition: right 0.3s ease;
+
+            overflow-y: auto;
+        }
+
+        .cart-panel.active {
+            right: 0;
+        }
+
+        .cart-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3a3028;
+        }
+
+        .cart-panel-header h3 {
+            color: #d9b84c;
+            margin: 0;
+        }
+
+        .cart-close {
+            background: transparent;
+            border: none;
+
+            color: white;
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
     </style>
+
 </head>
+
 <body>
 
+
 <nav class="navbar navbar-expand-lg">
+
     <div class="container">
-        <a class="navbar-brand" href="index.html">BEAN HAVEN</a>
-        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left me-2"></i>BACK TO HOME</a>
+
+        </a>
+
+        <!-- CART -->
+        <div class="cart-top" onclick="openCart()">
+            <i class="fas fa-cart-shopping"></i>
+            Cart
+            <span id="cartCount">0</span>
+        </div>
+        <!-- TRACK ORDER -->
+        <a href="track-order.html" class="back-btn">
+            <i class="fas fa-location-dot"></i>
+            TRACK ORDER
+        </a>
+
+        <!-- BACK TO HOME -->
+        <a
+                href="index.html"
+                class="back-btn">
+
+            <i class="fas fa-arrow-left me-2"></i>
+            BACK TO HOME
+
+        </a>
+
     </div>
+
 </nav>
 
+
 <div class="container">
+
     <div class="menu-header">
-        <h1>The Art of the Brew</h1>
-        <p>Handcrafted with passion, served with soul</p>
+
+        <h1>
+            The Art of the Brew
+        </h1>
+
+        <p>
+            Handcrafted with passion,
+            served with soul
+        </p>
+
     </div>
 
-    <!-- Category Filter Buttons -->
+
+    <!-- CATEGORY FILTERS -->
+
     <div class="category-filter">
-        <button class="filter-btn active" onclick="filterMenu('all')">All</button>
-        <button class="filter-btn" onclick="filterMenu('Espresso')">Espresso</button>
-        <button class="filter-btn" onclick="filterMenu('Cappuccino')">Cappuccino</button>
-        <button class="filter-btn" onclick="filterMenu('Latte')">Latte</button>
-        <button class="filter-btn" onclick="filterMenu('Iced Coffee')">Iced Coffee</button>
+
+        <button
+                class="filter-btn active"
+                onclick="filterMenu('all')">
+
+            All
+
+        </button>
+
+        <button
+                class="filter-btn"
+                onclick="filterMenu('Espresso')">
+
+            Espresso
+
+        </button>
+
+        <button
+                class="filter-btn"
+                onclick="filterMenu('Cappuccino')">
+
+            Cappuccino
+
+        </button>
+
+        <button
+                class="filter-btn"
+                onclick="filterMenu('Latte')">
+
+            Latte
+
+        </button>
+
+        <button
+                class="filter-btn"
+                onclick="filterMenu('Iced Coffee')">
+
+            Iced Coffee
+
+        </button>
+
+        <button
+                class="filter-btn"
+                onclick="filterMenu('Cold Brew')">
+
+            Cold Brew
+
+        </button>
+
     </div>
 
-    <!-- Menu Grid -->
-    <div class="row g-4" id="menuGrid">
+
+    <!-- MENU -->
+
+    <div
+            class="row g-4"
+            id="menuGrid">
+
         <div class="col-12 text-center py-5">
-            <div class="spinner-border text-warning" role="status">
-                <span class="visually-hidden">Loading...</span>
+
+            <div
+                    class="spinner-border text-warning"
+                    role="status">
+
+                <span class="visually-hidden">
+                    Loading...
+                </span>
+
             </div>
-            <p class="mt-2 text-white-50">Loading our finest selection...</p>
+
+            <p class="mt-2 text-white-50">
+
+                Loading our finest selection...
+
+            </p>
+
         </div>
+
     </div>
+
 </div>
 
-<!-- Order Modal -->
-<div class="modal fade" id="orderModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+
+<!-- =========================================================
+     ORDER MODAL
+     ========================================================= -->
+
+<div
+        class="modal fade"
+        id="orderModal"
+        tabindex="-1">
+
+    <div
+            class="
+            modal-dialog
+            modal-dialog-centered
+            ">
+
         <div class="modal-content">
+
+
             <div class="modal-header">
-                <h5 class="modal-title">Complete Your Order</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+                <h5 class="modal-title">
+
+                    Complete Your Order
+
+                </h5>
+
+                <button
+                        type="button"
+                        class="
+                        btn-close
+                        btn-close-white
+                        "
+                        data-bs-dismiss="modal">
+                </button>
+
             </div>
+
+
             <div class="modal-body">
-                <div id="orderAlert" class="alert-message"></div>
+
+                <div
+                        id="orderAlert"
+                        class="alert-message">
+                </div>
+
 
                 <form id="orderForm">
-                    <div class="mb-3">
-                        <label class="form-label">Coffee Name</label>
-                        <input type="text" class="form-control" id="modalCoffeeName" readonly>
-                    </div>
+
 
                     <div class="mb-3">
-                        <label class="form-label">Price</label>
-                        <input type="text" class="form-control" id="modalPrice" readonly>
+
+                        <label class="form-label">
+
+                            Coffee Name
+
+                        </label>
+
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="modalCoffeeName"
+                                readonly>
+
                     </div>
+
 
                     <div class="mb-3">
-                        <label class="form-label">Your Full Name</label>
-                        <input type="text" class="form-control" id="customerName" placeholder="Enter your name" required>
+
+                        <label class="form-label">
+
+                            Price
+
+                        </label>
+
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="modalPrice"
+                                readonly>
+
                     </div>
+
+                    <!-- ORDER TYPE -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Order Type
+                        </label>
+
+                        <div style="display:flex; gap:12px;">
+
+                            <button
+                                    type="button"
+                                    id="deliveryBtn"
+                                    class="btn-order"
+                                    onclick="selectOrderType('DELIVERY')">
+
+                                Delivery
+
+                            </button>
+
+                            <button
+                                    type="button"
+                                    id="takeawayBtn"
+                                    class="btn-order"
+                                    onclick="selectOrderType('TAKEAWAY')">
+
+                                Takeaway
+
+                            </button>
+
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Your Full Name
+
+                        </label>
+
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="customerName"
+                                placeholder="Enter your name"
+                                required>
+
+                    </div>
+
 
                     <div class="mb-3">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="customerPhone" placeholder="07XXXXXXXX" required>
+
+                        <label class="form-label">
+
+                            Phone Number
+
+                        </label>
+
+                        <input
+                                type="tel"
+                                class="form-control"
+                                id="customerPhone"
+                                placeholder="07XXXXXXXX"
+                                required>
+
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Delivery Address</label>
-                        <textarea class="form-control" id="deliveryAddress" rows="2" placeholder="Your full address" required></textarea>
+
+                    <div class="mb-3" id="deliveryAddressGroup">
+
+                        <label class="form-label">
+
+                            Delivery Address
+
+                        </label>
+
+                        <textarea
+                                class="form-control"
+                                id="deliveryAddress"
+                                rows="2"
+                                placeholder="Your full address"
+                                required></textarea>
+
                     </div>
 
-                    <button type="submit" class="btn-confirm w-100" id="submitOrderBtn">
-                        <span id="btnText">Confirm Order</span>
-                        <span id="btnSpinner" style="display: none;">
-                            <span class="spinner-border spinner-border-sm me-2"></span>Processing...
+
+                    <button
+                            type="submit"
+                            class="
+                            btn-confirm
+                            w-100
+                            "
+                            id="submitOrderBtn">
+
+                        <span id="btnText">
+
+                            Confirm Order
+
                         </span>
+
+
+                        <span
+                                id="btnSpinner"
+                                style="display:none;">
+
+                            <span
+                                    class="
+                                    spinner-border
+                                    spinner-border-sm
+                                    me-2
+                                    ">
+                            </span>
+
+                            Processing...
+
+                        </span>
+
                     </button>
+
                 </form>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const API_URL = 'http://localhost:8080/api/coffees';
-    const ORDERS_API = 'http://localhost:8080/api/orders';
+<!-- CART PANEL -->
+<div id="cartPanel" class="cart-panel">
 
-    // High-quality coffee images
-    const imageMap = {
-        "Classic Espresss": "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg",
-        "Cappuccinooo": "https://images.pexels.com/photos/2067628/pexels-photo-2067628.jpeg",
-        "Caramel Latte": "https://images.pexels.com/photos/2299028/pexels-photo-2299028.jpeg",
-        "Vanilla Latte": "https://images.pexels.com/photos/2299028/pexels-photo-2299028.jpeg",
-        "Hazelnut Latte": "https://images.pexels.com/photos/2299028/pexels-photo-2299028.jpeg",
-        "Iced Americano": "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg",
-        "Double Espresso": "https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg",
-        "default": "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg"
-    };
+    <div class="cart-panel-header">
+
+        <h3>
+            Your Cart
+        </h3>
+
+        <button
+                type="button"
+                class="cart-close"
+                onclick="closeCart()">
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+    </div>
+
+    <div id="cartItems">
+        <!-- Cart items will appear here -->
+    </div>
+
+</div>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<script>
+
+    // =========================================================
+    // API
+    // =========================================================
+
+    const API_URL =
+     "/api/coffees";
+
+    const ORDERS_API =
+     "/api/orders";
+
+    const DEFAULT_IMAGE =
+        "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg";
 
     let allCoffees = [];
 
-    // Fetch menu items
+
+    // =========================================================
+    // FETCH COFFEES
+    // =========================================================
+
     async function fetchMenu() {
+
         try {
-            const res = await fetch(API_URL);
-            if (!res.ok) throw new Error('Failed to fetch');
-            const data = await res.json();
-            allCoffees = data;
-            displayMenu(data);
-        } catch (e) {
-            console.log("Using fallback data");
-            // Fallback data with categories
-            allCoffees = [
-                { id: 1, name: "Classic Espresss", price: 3.50, category: "Espresso", description: "A rich bold espresso shot" },
-                { id: 2, name: "Double Espresso", price: 4.50, category: "Espresso", description: "Double shot of pure espresso" },
-                { id: 3, name: "Cappuccinooo", price: 4.25, category: "Cappuccino", description: "Perfect balance of espresso, steamed milk, and foam" },
-                { id: 4, name: "Vanilla Cappuccino", price: 4.75, category: "Cappuccino", description: "Cappuccino with vanilla essence" },
-                { id: 5, name: "Caramel Latte", price: 5.00, category: "Latte", description: "Smooth latte with sweet caramel syrup" },
-                { id: 6, name: "Vanilla Latte", price: 5.00, category: "Latte", description: "Creamy latte with vanilla essence" },
-                { id: 7, name: "Hazelnut Latte", price: 5.25, category: "Latte", description: "Rich hazelnut flavored latte" },
-                { id: 8, name: "Iced Americano", price: 3.75, category: "Iced Coffee", description: "Chilled espresso with water and ice" },
-                { id: 9, name: "Iced Latte", price: 4.50, category: "Iced Coffee", description: "Chilled latte with ice" }
-            ];
-            displayMenu(allCoffees);
+
+            const response =
+                await fetch(
+                    API_URL
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to fetch coffees"
+                );
+            }
+
+
+            const data =
+                await response.json();
+
+
+            allCoffees =
+                data.filter(
+                    coffee =>
+                        coffee.available !== false
+                );
+
+
+            displayMenu(
+                allCoffees
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Menu loading error:",
+                error
+            );
+
+
+            document
+                .getElementById(
+                    "menuGrid"
+                )
+                .innerHTML = `
+
+                <div class="col-12 text-center py-5">
+
+                    <p class="text-danger">
+
+                        Unable to load coffee menu.
+
+                    </p>
+
+                    <button
+                            class="
+                            btn
+                            btn-outline-warning
+                            "
+                            onclick="fetchMenu()">
+
+                        Try Again
+
+                    </button>
+
+                </div>
+            `;
         }
     }
+
+
+    // =========================================================
+    // DISPLAY COFFEES
+    // =========================================================
 
     function displayMenu(coffees) {
-        const grid = document.getElementById('menuGrid');
 
-        if (coffees.length === 0) {
-            grid.innerHTML = '<div class="col-12 text-center py-5"><p class="text-white-50">No items in this category</p></div>';
+        const grid =
+            document.getElementById(
+                "menuGrid"
+            );
+
+
+        if (
+            !coffees ||
+            coffees.length === 0
+        ) {
+
+            grid.innerHTML = `
+
+                <div class="col-12 text-center py-5">
+
+                    <p class="text-white-50">
+
+                        No items in this category.
+
+                    </p>
+
+                </div>
+            `;
+
             return;
         }
 
-        grid.innerHTML = coffees.map((item) => {
-            const displayImg = imageMap[item.name] || imageMap.default;
 
-            return `
-            <div class="col-lg-4 col-md-6">
-                <div class="coffee-card">
-                    <div class="img-container">
-                        <img src="${displayImg}" alt="${item.name}" loading="lazy">
-                    </div>
-                    <div class="card-content">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="coffee-name">${item.name}</span>
-                            <span class="coffee-category">${item.category || 'Coffee'}</span>
+        grid.innerHTML =
+            coffees.map(
+                item => {
+
+
+                    let displayImg =
+                        DEFAULT_IMAGE;
+
+
+                    if (
+                        item.imageUrl &&
+                        item.imageUrl.trim() !== ""
+                    ) {
+
+                        if (
+                            item.imageUrl.startsWith(
+                                "http://"
+                            ) ||
+                            item.imageUrl.startsWith(
+                                "https://"
+                            )
+                        ) {
+
+                            displayImg =
+                                item.imageUrl;
+
+                        } else {
+
+                            displayImg = item.imageUrl;
+                        }
+                    }
+
+
+                    const safeName =
+                        String(
+                            item.name || ""
+                        )
+                            .replaceAll(
+                                "\\",
+                                "\\\\"
+                            )
+                            .replaceAll(
+                                "'",
+                                "\\'"
+                            );
+
+
+                    const price =
+                        Number(
+                            item.price || 0
+                        );
+
+
+                    return `
+
+                    <div class="col-lg-6 col-md-12">
+
+                        <div class="coffee-card">
+
+
+                            <!-- LEFT DETAILS -->
+
+                            <div class="coffee-info">
+
+
+                                <div class="coffee-name">
+
+                                    ${
+                        item.name ||
+                        "Coffee"
+                    }
+
+                                </div>
+
+
+                                <div class="coffee-category">
+
+                                    ${
+                        item.category ||
+                        "Coffee"
+                    }
+
+                                </div>
+
+
+                                <div class="coffee-divider">
+                                </div>
+
+
+                                <div class="coffee-desc">
+
+                                    ${
+                        item.description ||
+                        "Premium artisan coffee"
+                    }
+
+                                </div>
+
+
+                                <div class="price-tag">
+
+                                    $${price.toFixed(2)}
+
+                                </div>
+                                <button
+        class="btn-order"
+        onclick="
+        addToCart(
+        ${item.id},
+        '${safeName}',
+        ${price}
+        )
+        ">
+
+    <i class="fas fa-cart-plus me-2"></i>
+
+    ADD TO CART
+
+</button>
+
+                                <button
+                                        class="btn-order"
+                                        onclick="
+                                        openOrderModal(
+                                        ${item.id},
+                                        '${safeName}',
+                                        ${price}
+                                        )
+                                        ">
+
+                                    <i class="fas fa-cart-shopping me-2"></i>
+
+                                    ORDER NOW
+
+                                </button>
+
+
+                            </div>
+
+
+                            <!-- RIGHT IMAGE -->
+
+                            <div class="coffee-image-side">
+
+                                <img
+                                        src="${displayImg}"
+                                        alt="${item.name || 'Coffee'}"
+                                        loading="lazy"
+                                        onerror="this.src='${DEFAULT_IMAGE}'">
+
+                            </div>
+
+
                         </div>
-                        <p class="coffee-desc">${item.description || 'Premium artisan coffee'}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="price-tag">$${parseFloat(item.price).toFixed(2)}</span>
-                            <button class="btn-order" onclick="openOrderModal(${item.id}, '${item.name}', ${item.price})">ORDER NOW</button>
-                        </div>
+
                     </div>
-                </div>
-            </div>
-        `;
-        }).join('');
+                `;
+
+                }
+            )
+                .join("");
     }
 
-    // Filter menu by category
-    window.filterMenu = function(category) {
-        // Update active button
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.textContent.toLowerCase() === category.toLowerCase() ||
-                (category === 'all' && btn.textContent === 'All')) {
-                btn.classList.add('active');
+
+    // =========================================================
+    // FILTER
+    // =========================================================
+
+    window.filterMenu =
+        function (category) {
+
+
+            document
+                .querySelectorAll(
+                    ".filter-btn"
+                )
+                .forEach(
+                    button => {
+
+
+                        button
+                            .classList
+                            .remove(
+                                "active"
+                            );
+
+
+                        const buttonText =
+                            button
+                                .textContent
+                                .trim()
+                                .toLowerCase();
+
+
+                        if (
+                            buttonText ===
+                            category.toLowerCase()
+                        ) {
+
+                            button
+                                .classList
+                                .add(
+                                    "active"
+                                );
+                        }
+
+
+                        if (
+                            category === "all" &&
+                            buttonText === "all"
+                        ) {
+
+                            button
+                                .classList
+                                .add(
+                                    "active"
+                                );
+                        }
+
+                    }
+                );
+
+
+            if (
+                category === "all"
+            ) {
+
+                displayMenu(
+                    allCoffees
+                );
+
+                return;
             }
-        });
 
-        // Filter coffees
-        if (category === 'all') {
-            displayMenu(allCoffees);
-        } else {
-            const filtered = allCoffees.filter(coffee =>
-                coffee.category && coffee.category.toLowerCase() === category.toLowerCase()
+
+            const filtered =
+                allCoffees.filter(
+                    coffee =>
+
+                        coffee.category &&
+
+                        coffee.category
+                            .toLowerCase()
+                        ===
+                        category.toLowerCase()
+                );
+
+
+            displayMenu(
+                filtered
             );
-            displayMenu(filtered);
-        }
-    };
-
-    // Open order modal
-    window.openOrderModal = function(id, name, price) {
-        document.getElementById('modalCoffeeName').value = name;
-        document.getElementById('modalPrice').value = `$${price.toFixed(2)}`;
-
-        // Clear previous form data
-        document.getElementById('customerName').value = '';
-        document.getElementById('customerPhone').value = '';
-        document.getElementById('deliveryAddress').value = '';
-
-        // Hide any previous alerts
-        document.getElementById('orderAlert').style.display = 'none';
-
-        // Store coffee ID for submission
-        window.currentCoffeeId = id;
-        window.currentPrice = price;
-
-        new bootstrap.Modal(document.getElementById('orderModal')).show();
-    };
-
-    // Handle order form submission
-    document.getElementById('orderForm').onsubmit = async function(e) {
-        e.preventDefault();
-
-        const alertDiv = document.getElementById('orderAlert');
-        const submitBtn = document.getElementById('submitOrderBtn');
-        const btnText = document.getElementById('btnText');
-        const btnSpinner = document.getElementById('btnSpinner');
-
-        // Validate phone number
-        const phone = document.getElementById('customerPhone').value;
-        if (!/^\d{10}$/.test(phone)) {
-            showAlert('Please enter a valid 10-digit phone number', 'error');
-            return;
-        }
-
-        // Show loading state
-        btnText.style.display = 'none';
-        btnSpinner.style.display = 'inline-block';
-        submitBtn.disabled = true;
-
-        const orderData = {
-            coffeeName: document.getElementById('modalCoffeeName').value,
-            price: window.currentPrice,
-            customerName: document.getElementById('customerName').value,
-            customerPhone: phone,
-            deliveryAddress: document.getElementById('deliveryAddress').value,
-            orderDetails: document.getElementById('modalCoffeeName').value,
-            totalPrice: window.currentPrice,
-            status: 'PENDING'
         };
 
-        console.log('Sending order:', orderData);
 
-        try {
-            const res = await fetch(ORDERS_API, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            });
+    // =========================================================
+    // OPEN ORDER MODAL
+    // =========================================================
 
-            if (res.ok) {
-                showAlert('Order placed successfully! Thank you for choosing Bean Haven.', 'success');
-                setTimeout(() => {
-                    bootstrap.Modal.getInstance(document.getElementById('orderModal')).hide();
-                    document.getElementById('orderForm').reset();
-                }, 2000);
-            } else {
-                const error = await res.text();
-                throw new Error(error || 'Failed to place order');
+    window.openOrderModal =
+        function (
+            id,
+            name,
+            price
+        ) {
+
+
+            document
+                .getElementById(
+                    "modalCoffeeName"
+                )
+                .value =
+                name;
+
+
+            document
+                .getElementById(
+                    "modalPrice"
+                )
+                .value =
+                `$${Number(price).toFixed(2)}`;
+
+
+            document
+                .getElementById(
+                    "customerName"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "customerPhone"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "deliveryAddress"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "orderAlert"
+                )
+                .style.display =
+                "none";
+
+
+            window.currentCoffeeId =
+                id;
+
+
+            window.currentPrice =
+                Number(price);
+
+
+            new bootstrap.Modal(
+                document.getElementById(
+                    "orderModal"
+                )
+            ).show();
+        };
+
+
+    // =========================================================
+    // ORDER SUBMISSION
+    // =========================================================
+
+    document
+        .getElementById(
+            "orderForm"
+        )
+        .onsubmit =
+        async function (event) {
+
+
+            event.preventDefault();
+
+
+            const submitButton =
+                document.getElementById(
+                    "submitOrderBtn"
+                );
+
+
+            const buttonText =
+                document.getElementById(
+                    "btnText"
+                );
+
+
+            const buttonSpinner =
+                document.getElementById(
+                    "btnSpinner"
+                );
+
+
+            const phone =
+                document
+                    .getElementById(
+                        "customerPhone"
+                    )
+                    .value
+                    .trim();
+
+
+            if (
+                !/^\d{10}$/.test(
+                    phone
+                )
+            ) {
+
+                showAlert(
+                    "Please enter a valid 10-digit phone number",
+                    "error"
+                );
+
+                return;
             }
-        } catch (e) {
-            console.error('Order error:', e);
 
-            // Demo mode - show success anyway for testing
-            showAlert('Order placed in demo mode! (Backend not connected)', 'success');
-            setTimeout(() => {
-                bootstrap.Modal.getInstance(document.getElementById('orderModal')).hide();
-                document.getElementById('orderForm').reset();
-            }, 2000);
-        } finally {
-            // Reset button state
-            btnText.style.display = 'inline';
-            btnSpinner.style.display = 'none';
-            submitBtn.disabled = false;
-        }
-    };
 
-    function showAlert(message, type) {
-        const alertDiv = document.getElementById('orderAlert');
-        alertDiv.textContent = message;
-        alertDiv.className = `alert-message alert-${type}`;
-        alertDiv.style.display = 'block';
+            buttonText.style.display =
+                "none";
 
-        // Auto hide after 3 seconds
-        setTimeout(() => {
-            alertDiv.style.display = 'none';
-        }, 3000);
+
+            buttonSpinner.style.display =
+                "inline-block";
+
+
+            submitButton.disabled =
+                true;
+
+
+            const orderData = {
+
+
+                coffeeName:
+                document
+                    .getElementById(
+                        "modalCoffeeName"
+                    )
+                    .value,
+
+
+                price:
+                window.currentPrice,
+
+
+                customerName:
+                document
+                    .getElementById(
+                        "customerName"
+                    )
+                    .value,
+
+
+                customerPhone:
+                phone,
+
+
+                deliveryAddress:
+                    window.currentOrderType === "TAKEAWAY"
+                        ? "Takeaway"
+                        : document
+                            .getElementById(
+                                "deliveryAddress"
+                            )
+                            .value,
+
+                orderType:
+                window.currentOrderType,
+
+                orderDetails:
+                document
+                    .getElementById(
+                        "modalCoffeeName"
+                    )
+                    .value,
+
+
+                totalPrice:
+                window.currentPrice,
+
+
+                status:
+                    "PENDING"
+            };
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        ORDERS_API,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    orderData
+                                )
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    const message =
+                        await response.text();
+
+
+                    throw new Error(
+                        message ||
+                        "Failed to place order"
+                    );
+                }
+
+
+                showAlert(
+                    "Order placed successfully! Thank you for choosing Bean Haven.",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function () {
+
+
+                        const modal =
+                            bootstrap.Modal
+                                .getInstance(
+                                    document
+                                        .getElementById(
+                                            "orderModal"
+                                        )
+                                );
+
+
+                        if (modal) {
+
+                            modal.hide();
+                        }
+
+
+                        document
+                            .getElementById(
+                                "orderForm"
+                            )
+                            .reset();
+
+                    },
+                    1500
+                );
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Order error:",
+                    error
+                );
+
+
+                showAlert(
+                    "Unable to place order. Please try again.",
+                    "error"
+                );
+
+
+            } finally {
+
+
+                buttonText.style.display =
+                    "inline";
+
+
+                buttonSpinner.style.display =
+                    "none";
+
+
+                submitButton.disabled =
+                    false;
+            }
+
+        };
+
+
+    // =========================================================
+    // ALERT
+    // =========================================================
+
+    function showAlert(
+        message,
+        type
+    ) {
+
+
+        const alertDiv =
+            document.getElementById(
+                "orderAlert"
+            );
+
+
+        alertDiv.textContent =
+            message;
+
+
+        alertDiv.className =
+            `alert-message alert-${type}`;
+
+
+        alertDiv.style.display =
+            "block";
     }
 
-    // Phone number validation
-    document.getElementById('customerPhone').addEventListener('input', function(e) {
-        this.value = this.value.replace(/\D/g, '').substring(0, 10);
-    });
 
-    // Initialize
+    // =========================================================
+    // PHONE
+    // =========================================================
+
+    document
+        .getElementById(
+            "customerPhone"
+        )
+        .addEventListener(
+            "input",
+            function () {
+
+
+                this.value =
+                    this.value
+                        .replace(
+                            /\D/g,
+                            ""
+                        )
+                        .substring(
+                            0,
+                            10
+                        );
+            }
+        );
+
+
+    // =========================================================
+    // LOAD
+    // =========================================================
+
     fetchMenu();
+
+    // =========================================================
+    // ADD TO CART
+    // =========================================================
+
+    function addToCart(id, name, price) {
+
+        let cart =
+            JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existingItem =
+            cart.find(item => item.id === id);
+
+        if (existingItem) {
+
+            existingItem.quantity += 1;
+
+        } else {
+
+            cart.push({
+                id: id,
+                name: name,
+                price: price,
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+        updateCartCount();
+
+        alert(name + " added to cart!");
+    }
+
+    function updateCartCount() {
+
+        const cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+        const totalItems =
+            cart.reduce(
+                (total, item) =>
+                    total + item.quantity,
+                0
+            );
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
+    // =========================================================
+    // OPEN / CLOSE CART
+    // =========================================================
+
+    function openCart() {
+
+        renderCart();
+
+        document
+            .getElementById("cartPanel")
+            .classList
+            .add("active");
+    }
+
+
+    function closeCart() {
+
+        document
+            .getElementById("cartPanel")
+            .classList
+            .remove("active");
+    }
+
+
+    // =========================================================
+    // SHOW CART ITEMS
+    // =========================================================
+
+    function renderCart() {
+
+        const cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+        const cartItems =
+            document.getElementById("cartItems");
+
+
+        if (cart.length === 0) {
+
+            cartItems.innerHTML = `
+            <div style="
+                text-align:center;
+                padding:40px 10px;
+                color:#aaa;
+            ">
+                <i
+                    class="fas fa-cart-shopping"
+                    style="
+                        font-size:38px;
+                        color:#d4af37;
+                        margin-bottom:15px;
+                    ">
+                </i>
+
+                <p>Your cart is empty.</p>
+            </div>
+        `;
+
+            return;
+        }
+
+
+        let total = 0;
+
+
+        cartItems.innerHTML =
+            cart.map(item => {
+
+                const itemTotal =
+                    Number(item.price) *
+                    Number(item.quantity);
+
+                total += itemTotal;
+
+
+                return `
+                <div style="
+                    padding:18px 0;
+                    border-bottom:1px solid #3a3028;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:15px;
+                    ">
+
+                        <div>
+
+                            <div style="
+                                color:#d4af37;
+                                font-weight:600;
+                                margin-bottom:6px;
+                            ">
+                                ${item.name}
+                            </div>
+
+                            <div style="
+                                color:#aaa;
+                                font-size:13px;
+                            ">
+                                $${Number(item.price).toFixed(2)}
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            onclick="removeFromCart(${item.id})"
+                            style="
+                                background:transparent;
+                                border:none;
+                                color:#dc3545;
+                                cursor:pointer;
+                            ">
+
+                            <i class="fas fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        margin-top:14px;
+                    ">
+
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:10px;
+                        ">
+
+                            <button
+                                type="button"
+                                onclick="changeCartQuantity(
+                                    ${item.id},
+                                    -1
+                                )"
+                                style="
+                                    width:30px;
+                                    height:30px;
+                                    border-radius:50%;
+                                    border:1px solid #d4af37;
+                                    background:transparent;
+                                    color:#d4af37;
+                                ">
+                                -
+                            </button>
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+                            <button
+                                type="button"
+                                onclick="changeCartQuantity(
+                                    ${item.id},
+                                    1
+                                )"
+                                style="
+                                    width:30px;
+                                    height:30px;
+                                    border-radius:50%;
+                                    border:1px solid #d4af37;
+                                    background:transparent;
+                                    color:#d4af37;
+                                ">
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <strong style="color:#d4af37;">
+                            $${itemTotal.toFixed(2)}
+                        </strong>
+
+                    </div>
+
+                </div>
+            `;
+
+            })
+                .join("");
+
+
+        cartItems.innerHTML += `
+
+        <div style="
+            margin-top:25px;
+            padding-top:20px;
+        ">
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                font-size:18px;
+                margin-bottom:20px;
+            ">
+
+                <span>
+                    Total
+                </span>
+
+                <strong style="color:#d4af37;">
+                    $${total.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="checkoutCart()"
+                style="
+                    width:100%;
+                    padding:13px;
+                    border:none;
+                    border-radius:25px;
+                    background:#d4af37;
+                    color:#1a1412;
+                    font-weight:700;
+                    cursor:pointer;
+                ">
+
+                CHECKOUT
+
+            </button>
+
+        </div>
+    `;
+    }
+
+
+    // =========================================================
+    // CHANGE QUANTITY
+    // =========================================================
+
+    function changeCartQuantity(id, change) {
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+        const item =
+            cart.find(
+                item => item.id === id
+            );
+
+
+        if (!item) {
+            return;
+        }
+
+
+        item.quantity += change;
+
+
+        if (item.quantity <= 0) {
+
+            cart =
+                cart.filter(
+                    item => item.id !== id
+                );
+        }
+
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+
+        updateCartCount();
+
+        renderCart();
+    }
+
+
+    // =========================================================
+    // REMOVE ITEM
+    // =========================================================
+
+    function removeFromCart(id) {
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+
+        cart =
+            cart.filter(
+                item => item.id !== id
+            );
+
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+
+        updateCartCount();
+
+        renderCart();
+    }
+
+
+    // =========================================================
+    // CHECKOUT
+    // =========================================================
+    // =========================================================
+    // CHECKOUT
+    // =========================================================
+
+    function checkoutCart() {
+
+        const cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+
+        if (cart.length === 0) {
+
+            alert(
+                "Your cart is empty."
+            );
+
+            return;
+        }
+
+
+        const orderDetails =
+            cart.map(
+                item =>
+                    `${item.name} x${item.quantity}`
+            )
+                .join(", ");
+
+
+        const totalPrice =
+            cart.reduce(
+                (total, item) =>
+                    total +
+                    (
+                        Number(item.price) *
+                        Number(item.quantity)
+                    ),
+                0
+            );
+
+
+        document
+            .getElementById(
+                "modalCoffeeName"
+            )
+            .value =
+            orderDetails;
+
+
+        document
+            .getElementById(
+                "modalPrice"
+            )
+            .value =
+            `$${totalPrice.toFixed(2)}`;
+
+
+        document
+            .getElementById(
+                "customerName"
+            )
+            .value =
+            "";
+
+
+        document
+            .getElementById(
+                "customerPhone"
+            )
+            .value =
+            "";
+
+
+        document
+            .getElementById(
+                "deliveryAddress"
+            )
+            .value =
+            "";
+
+
+        document
+            .getElementById(
+                "orderAlert"
+            )
+            .style.display =
+            "none";
+
+
+        window.currentCoffeeId =
+            null;
+
+
+        window.currentPrice =
+            totalPrice;
+
+
+        window.currentCartOrderDetails =
+            orderDetails;
+
+
+        closeCart();
+
+
+        new bootstrap.Modal(
+            document.getElementById(
+                "orderModal"
+            )
+        ).show();
+    }
+    // =========================================================
+    // SELECT ORDER TYPE
+    // =========================================================
+
+    function selectOrderType(type) {
+        window.currentOrderType = type;
+        const addressGroup =
+            document.getElementById(
+                "deliveryAddressGroup"
+            );
+
+        const addressInput =
+            document.getElementById(
+                "deliveryAddress"
+            );
+
+
+        if (type === "DELIVERY") {
+
+            addressGroup.style.display = "block";
+
+            addressInput.required = true;
+
+        } else {
+
+            addressGroup.style.display = "none";
+
+            addressInput.required = false;
+            addressInput.value = "";
+        }
+    }
+
+
+    updateCartCount();
+
 </script>
+
 </body>
 </html>

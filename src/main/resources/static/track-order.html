@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Track Order | Bean Haven</title>
+
+    <!-- Google Font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: "Poppins", sans-serif;
+
+            background:
+                    radial-gradient(
+                            circle at top,
+                            #1a1510 0%,
+                            #080808 45%,
+                            #000000 100%
+                    );
+
+            color: #ffffff;
+
+            min-height: 100vh;
+        }
+
+
+        /* ================================
+           NAVBAR
+        ================================= */
+
+        .navbar {
+
+            height: 90px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 10%;
+
+            background: #15110f;
+
+            border-bottom:
+                    1px solid #30271d;
+        }
+
+
+        .logo {
+
+            font-family:
+                    "Cormorant Garamond",
+                    serif;
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            color: #d9b747;
+
+            text-decoration: none;
+        }
+
+
+        .back-btn {
+
+            color: #d9b747;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+        }
+
+
+        .back-btn:hover {
+            color: #ffffff;
+        }
+
+
+        /* ================================
+           PAGE
+        ================================= */
+
+        .page-container {
+
+            width: 90%;
+
+            max-width: 850px;
+
+            margin: auto;
+
+            padding:
+                    70px 0
+                    100px;
+        }
+
+
+        .page-title {
+
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+
+        .page-title h1 {
+
+            font-family:
+                    "Cormorant Garamond",
+                    serif;
+
+            color: #d9b747;
+
+            font-size: 48px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-title p {
+
+            color: #aaa;
+
+            font-size: 14px;
+        }
+
+
+        /* ================================
+           TRACKING BOX
+        ================================= */
+
+        .tracking-box {
+
+            background: #171310;
+
+            border:
+                    1px solid #5d4a22;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                    0 15px 50px
+                    rgba(0, 0, 0, 0.5);
+        }
+
+
+        .tracking-box label {
+
+            display: block;
+
+            color: #d9b747;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .search-row {
+
+            display: flex;
+
+            gap: 12px;
+        }
+
+
+        .search-row input {
+
+            flex: 1;
+
+            background: #29231f;
+
+            border:
+                    1px solid #463b31;
+
+            border-radius: 10px;
+
+            color: white;
+
+            padding:
+                    15px 17px;
+
+            font-family:
+                    "Poppins",
+                    sans-serif;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        .search-row input:focus {
+
+            border-color: #d9b747;
+        }
+
+
+        .track-btn {
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #d9b747;
+
+            color: #080808;
+
+            padding:
+                    0 28px;
+
+            font-family:
+                    "Poppins",
+                    sans-serif;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .track-btn:hover {
+
+            background: #f0cd59;
+
+            transform:
+                    translateY(-1px);
+        }
+
+
+        /* ================================
+           MESSAGE
+        ================================= */
+
+        #message {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            font-size: 13px;
+        }
+
+
+        .error {
+
+            display: block !important;
+
+            background:
+                    rgba(220, 53, 69, 0.12);
+
+            border:
+                    1px solid #dc3545;
+
+            color: #ff6978;
+        }
+
+
+        /* ================================
+           ORDERS
+        ================================= */
+
+        #ordersContainer {
+
+            margin-top: 30px;
+        }
+
+
+        .order-card {
+
+            background: #171310;
+
+            border:
+                    1px solid #453820;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            animation:
+                    fadeIn 0.4s ease;
+        }
+
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                        translateY(10px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                        translateY(0);
+            }
+        }
+
+
+        .order-header {
+
+            display: flex;
+
+            justify-content:
+                    space-between;
+
+            align-items: center;
+
+            border-bottom:
+                    1px solid #30271d;
+
+            padding-bottom: 17px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .order-number {
+
+            font-family:
+                    "Cormorant Garamond",
+                    serif;
+
+            font-size: 25px;
+
+            color: #d9b747;
+        }
+
+
+        .order-type {
+
+            background: #2c251d;
+
+            border:
+                    1px solid #665325;
+
+            color: #d9b747;
+
+            padding:
+                    7px 14px;
+
+            border-radius: 30px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+        }
+
+
+        .order-info {
+
+            display: grid;
+
+            grid-template-columns:
+                    repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .info-label {
+
+            color: #777;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .info-value {
+
+            color: #eee;
+
+            font-size: 14px;
+        }
+
+
+        .price {
+
+            color: #d9b747;
+
+            font-size: 19px;
+
+            font-weight: 600;
+        }
+
+
+        /* ================================
+           STATUS
+        ================================= */
+
+        .status-area {
+
+            background: #211b16;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+
+        .status-label {
+
+            color: #888;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .status {
+
+            color: #d9b747;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+        }
+
+
+        .status-message {
+
+            color: #bbb;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (
+        max-width: 600px
+        ) {
+
+            .navbar {
+
+                padding:
+                        0 5%;
+            }
+
+
+            .page-container {
+
+                width: 92%;
+
+                padding-top: 45px;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 38px;
+            }
+
+
+            .tracking-box {
+
+                padding: 22px;
+            }
+
+
+            .search-row {
+
+                flex-direction:
+                        column;
+            }
+
+
+            .track-btn {
+
+                padding: 14px;
+            }
+
+
+            .order-info {
+
+                grid-template-columns:
+                        1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     NAVBAR
+====================================== -->
+
+<nav class="navbar">
+
+    <a
+            href="index.html"
+            class="logo"
+    >
+        BEAN HAVEN
+    </a>
+
+
+    <a
+            href="index.html"
+            class="back-btn"
+    >
+
+        <i class="fas fa-arrow-left"></i>
+
+        &nbsp; BACK TO HOME
+
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================
+     MAIN PAGE
+====================================== -->
+
+<div class="page-container">
+
+
+    <div class="page-title">
+
+        <h1>
+            Track Your Order
+        </h1>
+
+        <p>
+            Enter the phone number used when placing your order.
+        </p>
+
+    </div>
+
+
+
+    <!-- TRACK BOX -->
+
+    <div class="tracking-box">
+
+        <label>
+            PHONE NUMBER
+        </label>
+
+
+        <div class="search-row">
+
+            <input
+                    type="tel"
+                    id="phoneNumber"
+                    placeholder="07XXXXXXXX"
+                    maxlength="15"
+            >
+
+
+            <button
+                    class="track-btn"
+                    onclick="trackOrder()"
+            >
+
+                <i class="fas fa-location-dot"></i>
+
+                &nbsp;
+
+                TRACK ORDER
+
+            </button>
+
+        </div>
+
+
+        <div id="message"></div>
+
+    </div>
+
+
+
+    <!-- ORDERS APPEAR HERE -->
+
+    <div id="ordersContainer"></div>
+
+
+</div>
+
+
+
+<script>
+
+    // =========================================================
+    // API
+    // =========================================================
+
+    const API_BASE =
+        "http://localhost:8082/api";
+
+
+    // =========================================================
+    // TRACK ORDER
+    // =========================================================
+
+    async function trackOrder() {
+
+        const phone =
+            document
+                .getElementById(
+                    "phoneNumber"
+                )
+                .value
+                .trim();
+
+
+        const message =
+            document
+                .getElementById(
+                    "message"
+                );
+
+
+        const container =
+            document
+                .getElementById(
+                    "ordersContainer"
+                );
+
+
+        message.style.display =
+            "none";
+
+        message.className =
+            "";
+
+        container.innerHTML =
+            "";
+
+
+        // Validate phone
+
+        if (!phone) {
+
+            showError(
+                "Please enter your phone number."
+            );
+
+            return;
+        }
+
+
+        if (!/^[0-9]{10,15}$/.test(phone)) {
+
+            showError(
+                "Please enter a valid phone number."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_BASE}/orders/phone/${encodeURIComponent(phone)}`,
+                    {
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to find orders."
+                );
+            }
+
+
+            const orders =
+                await response.json();
+
+
+            if (
+                !orders ||
+                orders.length === 0
+            ) {
+
+                showError(
+                    "No orders found for this phone number."
+                );
+
+                return;
+            }
+
+
+            // Latest orders first
+
+            orders.sort(
+                (a, b) =>
+                    new Date(b.orderDate) -
+                    new Date(a.orderDate)
+            );
+
+
+            container.innerHTML =
+                orders
+                    .map(
+                        order =>
+                            createOrderCard(order)
+                    )
+                    .join("");
+
+
+        } catch (error) {
+
+            console.error(
+                "Tracking error:",
+                error
+            );
+
+
+            showError(
+                "Unable to track your order. Please try again."
+            );
+        }
+    }
+
+
+
+    // =========================================================
+    // CREATE ORDER CARD
+    // =========================================================
+
+    function createOrderCard(order) {
+
+        const type =
+            order.orderType ||
+            "DELIVERY";
+
+
+        const status =
+            order.status ||
+            "PENDING";
+
+
+        const statusText =
+            getStatusMessage(
+                type,
+                status
+            );
+
+
+        const date =
+            order.orderDate
+                ? new Date(
+                    order.orderDate
+                ).toLocaleString()
+                : "Not available";
+
+
+        const locationText =
+            type === "TAKEAWAY"
+                ? "Pickup from Bean Haven"
+                : (
+                    order.deliveryAddress ||
+                    "Delivery address not available"
+                );
+
+
+        return `
+
+            <div class="order-card">
+
+
+                <div class="order-header">
+
+                    <div class="order-number">
+
+                        Order #${order.id}
+
+                    </div>
+
+
+                    <div class="order-type">
+
+                        ${
+            type === "TAKEAWAY"
+                ? "🥡 TAKEAWAY"
+                : "🚚 DELIVERY"
+        }
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="order-info">
+
+
+                    <div>
+
+                        <div class="info-label">
+                            Customer
+                        </div>
+
+                        <div class="info-value">
+
+                            ${
+            order.customerName ||
+            "Guest"
+        }
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <div class="info-label">
+                            Order Date
+                        </div>
+
+                        <div class="info-value">
+
+                            ${date}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <div class="info-label">
+
+                            ${
+            type === "TAKEAWAY"
+                ? "Pickup"
+                : "Delivery Address"
+        }
+
+                        </div>
+
+                        <div class="info-value">
+
+                            ${locationText}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <div class="info-label">
+                            Total
+                        </div>
+
+                        <div class="price">
+
+                            $${
+            Number(
+                order.totalPrice || 0
+            ).toFixed(2)
+        }
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="status-area">
+
+                    <div class="status-label">
+
+                        CURRENT STATUS
+
+                    </div>
+
+
+                    <div class="status">
+
+                        ${formatStatus(status)}
+
+                    </div>
+
+
+                    <div class="status-message">
+
+                        ${statusText}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        `;
+    }
+
+
+
+    // =========================================================
+    // STATUS MESSAGE
+    // =========================================================
+
+    function getStatusMessage(
+        type,
+        status
+    ) {
+
+        if (status === "PENDING") {
+
+            return "We have received your order.";
+        }
+
+
+        if (status === "PREPARING") {
+
+            return "Your order is currently being prepared. ☕";
+        }
+
+
+        if (
+            status === "READY" &&
+            type === "TAKEAWAY"
+        ) {
+
+            return "Your order is ready for pickup at Bean Haven! 🎉";
+        }
+
+
+        if (
+            status === "OUT_FOR_DELIVERY"
+        ) {
+
+            return "Your order is on the way to you. 🚚";
+        }
+
+
+        if (status === "DELIVERED") {
+
+            return "Your order has been delivered. Thank you! ❤️";
+        }
+
+
+        if (status === "CANCELLED") {
+
+            return "This order has been cancelled.";
+        }
+
+
+        return "Your order status is being updated.";
+    }
+
+
+
+    // =========================================================
+    // FORMAT STATUS
+    // =========================================================
+
+    function formatStatus(status) {
+
+        return status
+            .replaceAll(
+                "_",
+                " "
+            );
+    }
+
+
+
+    // =========================================================
+    // ERROR MESSAGE
+    // =========================================================
+
+    function showError(text) {
+
+        const message =
+            document
+                .getElementById(
+                    "message"
+                );
+
+
+        message.innerText =
+            text;
+
+        message.className =
+            "error";
+
+        message.style.display =
+            "block";
+    }
+
+
+
+    // =========================================================
+    // PRESS ENTER TO SEARCH
+    // =========================================================
+
+    document
+        .getElementById(
+            "phoneNumber"
+        )
+        .addEventListener(
+            "keypress",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    trackOrder();
+                }
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
   <title>Admin Dashboard - Bean Haven Elite</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
+
     :root {
       --bg-black: #080808;
       --espresso-dark: #1a1412;
@@ -16,6 +29,10 @@
       --text-muted: #a0a0a0;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       background-color: var(--bg-black);
       color: var(--text-bright);
@@ -23,7 +40,13 @@
       min-height: 100vh;
       margin: 0;
       font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
     }
+
+
+    /* =====================================================
+       SIDEBAR
+       ===================================================== */
 
     .sidebar {
       width: 260px;
@@ -36,7 +59,9 @@
       border-right: 1px solid var(--espresso-light);
     }
 
-    .sidebar h3 { color: var(--gold); }
+    .sidebar h3 {
+      color: var(--gold);
+    }
 
     .menu-item {
       padding: 12px;
@@ -50,21 +75,53 @@
       text-decoration: none;
     }
 
-    .menu-item:hover, .menu-item.active {
-      background: rgba(212, 175, 55, 0.1);
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(212,175,55,0.1);
       color: var(--gold);
       border-left: 4px solid var(--gold);
     }
 
+
+    /* =====================================================
+       MAIN CONTENT
+       ===================================================== */
+
     .main-content {
       margin-left: 260px;
-      flex: 1;
+
+      width: calc(100vw - 260px);
+      min-width: calc(100vw - 260px);
+      min-height: 100vh;
+
       padding: 40px;
-      width: calc(100% - 260px);
+
+      background:
+              linear-gradient(
+                      rgba(8, 8, 8, 0.82),
+                      rgba(8, 8, 8, 0.82)
+              ),
+              url('/images/admin-bg.jpg');
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
-    .section { display: none; }
-    .section.active { display: block; animation: fadeIn 0.4s ease; }
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+
+    /* =====================================================
+       OLD STAT CARD
+       ===================================================== */
 
     .card-stat {
       background: var(--espresso-dark);
@@ -74,6 +131,417 @@
       text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
+
+
+    /* =====================================================
+       NEW DASHBOARD
+       ===================================================== */
+
+
+    .dashboard-layout {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      min-height: 650px;
+    }
+
+    .dashboard-left {
+      width: 900px;
+      max-width: 100%;
+      margin: 0 auto;
+      min-width: 0;
+    }
+
+
+    /* TOP 3 CARDS */
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .dashboard-stat-card {
+      background:
+              linear-gradient(
+                      145deg,
+                      #1a1412,
+                      #100d0b
+              );
+
+      border: 1px solid #352b26;
+      border-radius: 16px;
+
+      padding: 22px;
+
+      min-height: 205px;
+
+      box-shadow:
+              0 12px 30px rgba(0,0,0,0.4);
+
+      transition: 0.3s;
+    }
+
+    .dashboard-stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+
+      box-shadow:
+              0 16px 35px
+              rgba(212,175,55,0.12);
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      color: var(--gold);
+
+      background:
+              rgba(212,175,55,0.08);
+
+      border:
+              1px solid rgba(212,175,55,0.25);
+
+      margin-bottom: 18px;
+    }
+
+    .stat-icon i {
+      font-size: 1rem;
+    }
+
+    .dashboard-stat-card h1 {
+      color: white;
+      font-size: 2.3rem;
+      font-weight: 500;
+      margin: 0 0 4px;
+    }
+
+    .dashboard-stat-card p {
+      color: white;
+      margin: 0 0 17px;
+      font-size: 0.9rem;
+    }
+
+    .dashboard-link {
+      background: transparent;
+      border: none;
+      outline: none;
+
+      padding: 0;
+
+      color: var(--gold);
+
+      font-size: 0.72rem;
+      font-weight: 500;
+
+      cursor: pointer;
+
+      transition: 0.25s;
+    }
+
+    .dashboard-link:hover {
+      color: white;
+    }
+
+
+    /* =====================================================
+       DASHBOARD BOTTOM
+       ===================================================== */
+
+    .dashboard-bottom {
+      display: grid;
+
+      grid-template-columns:
+                minmax(240px, 0.9fr)
+                minmax(320px, 1.35fr);
+
+      gap: 18px;
+    }
+
+    .overview-card,
+    .upcoming-card {
+      background:
+              linear-gradient(
+                      145deg,
+                      #171210,
+                      #0e0c0b
+              );
+
+      border: 1px solid #352b26;
+
+      border-radius: 16px;
+
+      padding: 22px;
+
+      min-height: 310px;
+
+      box-shadow:
+              0 12px 30px
+              rgba(0,0,0,0.35);
+    }
+
+    .overview-card h5,
+    .upcoming-card h5 {
+      color: white;
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =====================================================
+       MONTHLY OVERVIEW
+       ===================================================== */
+
+    .overview-content {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 22px;
+
+      margin-top: 38px;
+    }
+
+    .donut-chart {
+      width: 140px;
+      height: 140px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      background:
+              conic-gradient(
+                      var(--gold) 0deg 250deg,
+                      #c17a3a 250deg 320deg,
+                      #d94c4c 320deg 360deg
+              );
+
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .donut-chart::before {
+      content: "";
+
+      position: absolute;
+
+      width: 88px;
+      height: 88px;
+
+      border-radius: 50%;
+
+      background: #0e0c0b;
+    }
+
+    .donut-center {
+      position: relative;
+      z-index: 2;
+
+      text-align: center;
+    }
+
+    .donut-center small {
+      display: block;
+
+      color: var(--text-muted);
+
+      font-size: 0.62rem;
+
+      margin-bottom: 2px;
+    }
+
+    .donut-center strong {
+      color: white;
+
+      font-size: 1.5rem;
+    }
+
+    .overview-legend {
+      min-width: 120px;
+    }
+
+    .overview-legend div {
+      color: #c4bfbc;
+
+      font-size: 0.68rem;
+
+      margin-bottom: 14px;
+    }
+
+    .overview-legend strong {
+      color: white;
+
+      float: right;
+
+      margin-left: 10px;
+    }
+
+    .legend-dot {
+      display: inline-block;
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 2px;
+
+      margin-right: 7px;
+    }
+
+    .legend-dot.completed {
+      background: var(--gold);
+    }
+
+    .legend-dot.pending {
+      background: #c17a3a;
+    }
+
+    .legend-dot.cancelled {
+      background: #d94c4c;
+    }
+
+
+    /* =====================================================
+       UPCOMING RESERVATIONS
+       ===================================================== */
+
+    #dashboardReservations {
+      margin-top: 8px;
+    }
+
+    .dashboard-reservation-item {
+      padding: 12px 0;
+
+      border-bottom:
+              1px solid #2d2521;
+    }
+
+    .dashboard-reservation-item:last-child {
+      border-bottom: none;
+    }
+
+    .dashboard-reservation-name {
+      color: white;
+
+      font-size: 0.82rem;
+      font-weight: 600;
+
+      margin-bottom: 6px;
+    }
+
+    .dashboard-reservation-meta {
+      display: flex;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
+      color: var(--text-muted);
+
+      font-size: 0.65rem;
+    }
+
+    .dashboard-reservation-meta i {
+      color: var(--gold);
+
+      margin-right: 4px;
+    }
+
+
+    /* =====================================================
+       RIGHT SIDE COFFEE IMAGE
+       ===================================================== */
+
+    .dashboard-image {
+      position: relative;
+
+      min-height: 650px;
+
+      overflow: hidden;
+
+      border-radius: 18px;
+
+      border: 1px solid #352b26;
+
+      background-image:
+              linear-gradient(
+                      rgba(0,0,0,0.15),
+                      rgba(0,0,0,0.45)
+              ),
+              url(
+              'https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1200&q=85'
+              );
+
+      background-size: cover;
+
+      background-position: center;
+
+      box-shadow:
+              0 18px 40px
+              rgba(0,0,0,0.45);
+    }
+
+    .image-dark-overlay {
+      position: absolute;
+
+      inset: 0;
+
+      background:
+              linear-gradient(
+                      90deg,
+                      rgba(8,8,8,0.65),
+                      rgba(8,8,8,0.05)
+              );
+    }
+
+    .coffee-quote {
+      position: absolute;
+
+      top: 110px;
+      left: 50%;
+
+      transform:
+              translateX(-50%)
+              rotate(-5deg);
+
+      width: 90%;
+
+      text-align: center;
+
+      color: #f1cf7a;
+
+      font-family:
+              'Playfair Display',
+              serif;
+
+      font-size: 2rem;
+
+      font-style: italic;
+
+      line-height: 1.35;
+
+      text-shadow:
+              0 0 20px
+              rgba(212,175,55,0.55);
+    }
+
+
+    /* =====================================================
+       TABLE
+       ===================================================== */
 
     .table {
       border-collapse: separate !important;
@@ -124,6 +592,11 @@
       border-bottom-right-radius: 12px;
     }
 
+
+    /* =====================================================
+       STATUS BADGES
+       ===================================================== */
+
     .status-badge {
       padding: 6px 12px;
       border-radius: 20px;
@@ -132,77 +605,190 @@
       text-transform: uppercase;
       border: 1px solid transparent;
     }
-    .status-pending { background: rgba(212, 175, 55, 0.1); color: var(--gold); border-color: var(--gold); }
-    .status-confirmed { background: rgba(40, 167, 69, 0.1); color: #28a745; border-color: #28a745; }
-    .status-cancelled { background: rgba(220, 53, 69, 0.1); color: #dc3545; border-color: #dc3545; }
+
+    .status-pending {
+      background: rgba(212,175,55,0.1);
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .status-confirmed {
+      background: rgba(40,167,69,0.1);
+      color: #28a745;
+      border-color: #28a745;
+    }
+
+    .status-cancelled {
+      background: rgba(220,53,69,0.1);
+      color: #dc3545;
+      border-color: #dc3545;
+    }
+
+
+    /* =====================================================
+       ACTION BUTTONS
+       ===================================================== */
 
     .action-btn {
       background: transparent;
       border: 1px solid var(--espresso-light);
       color: white;
+
       width: 35px;
       height: 35px;
+
       border-radius: 50%;
+
       transition: 0.3s;
     }
-    .action-btn:hover { background: var(--gold); color: black; border-color: var(--gold); }
-    .delete-btn:hover { background: #dc3545; border-color: #dc3545; }
+
+    .action-btn:hover {
+      background: var(--gold);
+      color: black;
+      border-color: var(--gold);
+    }
+
+    .delete-btn:hover {
+      background: #dc3545;
+      border-color: #dc3545;
+    }
+
+
+    /* =====================================================
+       MODAL + FORMS
+       ===================================================== */
 
     .modal-content {
       background: var(--espresso-dark);
       border: 1px solid var(--gold);
       border-radius: 15px;
     }
-    .modal-header { border-bottom: 1px solid var(--espresso-light); }
-    .form-control, .form-select {
+
+    .modal-header {
+      border-bottom: 1px solid var(--espresso-light);
+    }
+
+    .form-control,
+    .form-select {
       background: var(--bg-black) !important;
       border: 1px solid var(--espresso-light) !important;
       color: white !important;
     }
 
+    .form-control::placeholder {
+      color: #777;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--gold) !important;
+
+      box-shadow:
+              0 0 0 0.15rem
+              rgba(212,175,55,0.15);
+    }
+
+    .coffee-image-small {
+      width: 65px;
+      height: 50px;
+
+      object-fit: cover;
+
+      border-radius: 8px;
+
+      border:
+              1px solid
+              var(--espresso-light);
+    }
+
+
+    /* =====================================================
+       ACCESS DENIED
+       ===================================================== */
+
     .unauthorized-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      width: 100vw;
+      height: 100vh;
+
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      min-height: 100vh;
-      width: 100%;
-      background: var(--bg-black);
+
+      padding-left: 120px;
+
+      background:
+              linear-gradient(
+                      rgba(0, 0, 0, 0.65),
+                      rgba(0, 0, 0, 0.65)
+              ),
+              url('/images/admin-panel-bg.jpg');
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      z-index: 9999;
     }
 
     .unauthorized-card {
       background: var(--espresso-dark);
-      border: 1px solid var(--espresso-light);
+
+      border:
+              1px solid
+              var(--espresso-light);
+
       padding: 40px;
+
       text-align: center;
+
       max-width: 400px;
+
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+      box-shadow:
+              0 10px 30px
+              rgba(0,0,0,0.5);
     }
 
     .unauthorized-card i {
       font-size: 4rem;
+
       color: #dc3545;
+
       margin-bottom: 20px;
     }
 
     .unauthorized-card h2 {
       color: var(--gold);
+
       margin-bottom: 15px;
     }
 
     .unauthorized-card p {
       color: var(--text-muted);
+
       margin-bottom: 25px;
     }
 
     .unauthorized-card .btn {
       background: var(--gold);
+
       color: var(--espresso-dark);
+
       border: none;
+
       padding: 10px 30px;
+
       text-decoration: none;
+
       display: inline-block;
+
       border-radius: 8px;
+
       font-weight: 600;
     }
 
@@ -210,247 +796,3193 @@
       background: white;
     }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 1250px) {
+
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-image {
+        min-height: 350px;
+      }
+
+    }
+
+    @media (max-width: 900px) {
+
+      .dashboard-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .overview-content {
+        flex-wrap: wrap;
+      }
+
+    }
+
+
+    /* =====================================================
+       ANIMATION
+       ===================================================== */
+
+    @keyframes fadeIn {
+
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
   </style>
+
 </head>
+
 <body>
+
 <div id="app"></div>
 
 <script>
-  // CHECK AUTHENTICATION FIRST
-  (function() {
-    const isLoggedIn = localStorage.getItem('adminLoggedIn');
-    const appDiv = document.getElementById('app');
 
-    if (!isLoggedIn || isLoggedIn !== 'true') {
-      // Show unauthorized message
+  // =========================================================
+  // REDIRECT IF OPENED DIRECTLY FROM WINDOWS
+  // =========================================================
+
+  if (window.location.protocol === "file:") {
+    window.location.href =
+            "http://localhost:8082/admin-panel.html";
+  }
+
+
+  // =========================================================
+  // API
+  // =========================================================
+
+  const API_BASE =
+          "http://localhost:8082/api";
+
+
+  // =========================================================
+  // CHECK ADMIN LOGIN
+  // =========================================================
+
+  (function () {
+
+    const isLoggedIn =
+            sessionStorage.getItem("adminLoggedIn");
+
+    const adminRole =
+            sessionStorage.getItem("adminRole");
+
+    const appDiv =
+            document.getElementById("app");
+
+
+    if (
+            isLoggedIn !== "true" ||
+            adminRole !== "ADMIN"
+    ) {
+
       appDiv.innerHTML = `
+
         <div class="unauthorized-container">
+
           <div class="unauthorized-card">
+
             <i class="fas fa-lock"></i>
-            <h2>Access Denied</h2>
-            <p>You must be logged in to access the admin panel.</p>
-            <a href="admin-login.html" class="btn">Go to Login</a>
+
+            <h2>
+              Access Denied
+            </h2>
+
+            <p>
+              You must be logged in as an administrator
+              to access the admin panel.
+            </p>
+
+            <a
+                    href="admin-login.html"
+                    class="btn">
+
+              Go to Login
+
+            </a>
+
           </div>
+
         </div>
       `;
+
       return;
     }
 
-    // If authenticated, load the admin panel content
+
     loadAdminContent();
+
   })();
 
+
+  // =========================================================
+  // LOAD ADMIN CONTENT
+  // =========================================================
+
   function loadAdminContent() {
-    document.getElementById('app').innerHTML = `
-    <div class="sidebar">
-      <div class="text-center mb-4">
-        <h3 class="fw-bold">☕ Bean Haven</h3>
-        <small class="opacity-50">ELITE PORTAL</small>
-      </div>
-      <div class="menu-item active" onclick="showSection('dashboard', this)"><i class="fas fa-chart-line me-2"></i> Dashboard</div>
-      <div class="menu-item" onclick="showSection('orders-section', this)"><i class="fas fa-shopping-bag me-2"></i> Coffee Orders</div>
-      <div class="menu-item" onclick="showSection('bookings-section', this)"><i class="fas fa-calendar-alt me-2"></i> Manage Bookings</div>
-      <div class="menu-item" onclick="showSection('coffees-section', this)"><i class="fas fa-mug-hot me-2"></i> Manage Coffees</div>
-      <hr style="border-color: var(--espresso-light);">
-      <a href="index.html" class="menu-item text-decoration-none"><i class="fas fa-home me-2"></i> Exit Website</a>
-      <button class="btn btn-outline-danger w-100 mt-3" onclick="logout()">Logout</button>
-    </div>
 
-    <div class="main-content">
-      <div id="dashboard" class="section active">
-        <h2 class="mb-4" style="color: var(--gold); font-weight: 300;">Control Panel</h2>
-        <div class="row g-4">
-          <div class="col-md-4"><div class="card-stat"><h1 id="orderCount">0</h1><p>Live Orders</p></div></div>
-          <div class="col-md-4"><div class="card-stat"><h1 id="coffeeCount">0</h1><p>Menu Items</p></div></div>
-          <div class="col-md-4"><div class="card-stat"><h1 id="bookingCount">0</h1><p>Reservations</p></div></div>
-        </div>
-      </div>
+    const username =
+            sessionStorage.getItem(
+                    "adminUsername"
+            ) || "Admin";
 
-      <div id="orders-section" class="section">
-        <h4 class="mb-4" style="color: var(--gold)">Recent Coffee Orders</h4>
-        <div class="table-responsive custom-table-container">
-          <table class="table align-middle">
-            <thead>
-            <tr><th>CUSTOMER</th><th>DETAILS</th><th>LOCATION</th><th>PRICE</th><th>STATUS</th><th>ACTIONS</th></tr>
-            </thead>
-            <tbody id="ordersTable"></tbody>
-          </table>
-        </div>
-      </div>
+    document.getElementById(
+            "app"
+    ).innerHTML = `
 
-      <div id="bookings-section" class="section">
-        <h4 class="mb-4" style="color: var(--gold)">Customer Reservations</h4>
-        <div class="table-responsive custom-table-container">
-          <table class="table align-middle">
-            <thead>
-            <tr><th>GUEST</th><th>DATE & TIME</th><th>SIZE</th><th>STATUS</th><th>ACTIONS</th></tr>
-            </thead>
-            <tbody id="bookingsTable"></tbody>
-          </table>
-        </div>
-      </div>
+        <!-- SIDEBAR -->
 
-      <div id="coffees-section" class="section">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h4 class="mb-0" style="color: var(--gold)">Coffee Inventory</h4>
-          <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addCoffeeModal">+ Add Coffee</button>
-        </div>
-        <div class="table-responsive custom-table-container">
-          <table class="table align-middle">
-            <thead>
-            <tr><th>ID</th><th>NAME</th><th>PRICE</th><th>CATEGORY</th><th class="text-end">ACTIONS</th></tr>
-            </thead>
-            <tbody id="coffeesTable"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+        <div class="sidebar">
 
-    <div class="modal fade" id="addCoffeeModal" tabindex="-1">
-      <div class="modal-dialog">
+            <div class="text-center mb-4">
+
+                <h3 class="fw-bold">
+                    ☕ Bean Haven
+                </h3>
+
+                <small class="opacity-50">
+                    ELITE PORTAL
+                </small>
+
+            </div>
+
+
+            <div
+                    class="menu-item active"
+                    onclick="showSection('dashboard', this)">
+
+                <i class="fas fa-chart-line me-2"></i>
+
+                Dashboard
+
+            </div>
+
+
+            <div
+                    class="menu-item"
+                    onclick="showSection('orders-section', this)">
+
+                <i class="fas fa-shopping-bag me-2"></i>
+
+                Coffee Orders
+
+            </div>
+
+
+            <div
+                    class="menu-item"
+                    onclick="showSection('bookings-section', this)">
+
+                <i class="fas fa-calendar-alt me-2"></i>
+
+                Manage Bookings
+
+            </div>
+
+
+            <div
+                    class="menu-item"
+                    onclick="showSection('coffees-section', this)">
+
+                <i class="fas fa-mug-hot me-2"></i>
+
+                Manage Coffees
+
+            </div>
+
+
+            <hr style="border-color: var(--espresso-light);">
+
+
+            <a
+                    href="index.html"
+                    class="menu-item text-decoration-none">
+
+                <i class="fas fa-home me-2"></i>
+
+                Exit Website
+
+            </a>
+
+
+            <button
+                    class="btn btn-outline-danger w-100 mt-3"
+                    onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+
+        <div class="main-content">
+
+
+            <!-- HEADER -->
+
+            <div
+                    class="
+                    d-flex
+                    justify-content-between
+                    align-items-center
+                    mb-4
+                    ">
+
+                <div>
+
+                    <h2
+                            style="
+                            color: var(--gold);
+                            font-weight: 300;
+                            ">
+
+                        Control Panel
+
+                    </h2>
+
+                    <small
+                            style="
+                            color: var(--text-muted);
+                            ">
+
+                        Logged in as:
+                        ${username}
+
+                    </small>
+
+                </div>
+
+
+
+
+            </div>
+
+<!-- =====================================================
+     DASHBOARD
+     ===================================================== -->
+
+<div
+        id="dashboard"
+        class="section active">
+
+    <div class="dashboard-layout">
+
+        <!-- LEFT SIDE -->
+        <div class="dashboard-left">
+
+            <!-- TOP STATS -->
+            <div class="dashboard-stats">
+
+                <!-- LIVE ORDERS -->
+                <div class="dashboard-stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-bag-shopping"></i>
+                    </div>
+
+                    <h1 id="orderCount">
+                        0
+                    </h1>
+
+                    <p>
+                        Live Orders
+                    </p>
+
+                    <button
+                            class="dashboard-link"
+                            onclick="
+                            showSection(
+                                'orders-section',
+                                document.querySelectorAll('.menu-item')[1]
+                            )
+                            ">
+
+                        View Details
+                        <i class="fas fa-arrow-right ms-1"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- MENU ITEMS -->
+                <div class="dashboard-stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+
+                    <h1 id="coffeeCount">
+                        0
+                    </h1>
+
+                    <p>
+                        Menu Items
+                    </p>
+
+                    <button
+                            class="dashboard-link"
+                            onclick="
+                            showSection(
+                                'coffees-section',
+                                document.querySelectorAll('.menu-item')[3]
+                            )
+                            ">
+
+                        View Details
+                        <i class="fas fa-arrow-right ms-1"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- RESERVATIONS -->
+                <div class="dashboard-stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-days"></i>
+                    </div>
+
+                    <h1 id="bookingCount">
+                        0
+                    </h1>
+
+                    <p>
+                        Reservations
+                    </p>
+
+                    <button
+                            class="dashboard-link"
+                            onclick="
+                            showSection(
+                                'bookings-section',
+                                document.querySelectorAll('.menu-item')[2]
+                            )
+                            ">
+
+                        View Details
+                        <i class="fas fa-arrow-right ms-1"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM AREA -->
+            <div class="dashboard-bottom">
+
+                <!-- MONTHLY OVERVIEW -->
+                <div class="overview-card">
+
+                    <h5>
+                        Monthly Overview
+                    </h5>
+
+                    <div class="overview-content">
+
+                        <div class="donut-chart">
+
+                            <div class="donut-center">
+
+                                <small>
+                                    Reservations
+                                </small>
+
+                                <strong id="overviewTotal">
+                                    0
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                        <div class="overview-legend">
+
+                            <div>
+                                <span class="legend-dot completed"></span>
+                                Confirmed
+                                <strong id="completedPercent">
+                                    0%
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span class="legend-dot pending"></span>
+                                Pending
+                                <strong id="pendingPercent">
+                                    0%
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span class="legend-dot cancelled"></span>
+                                Cancelled
+                                <strong id="cancelledPercent">
+                                    0%
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UPCOMING RESERVATIONS -->
+                <div class="upcoming-card">
+
+                    <div
+                            class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                            mb-3
+                            ">
+
+                        <h5 class="mb-0">
+                            Upcoming Reservations
+                        </h5>
+
+                        <button
+                                class="dashboard-link"
+                                onclick="
+                                showSection(
+                                    'bookings-section',
+                                    document.querySelectorAll('.menu-item')[2]
+                                )
+                                ">
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+                    <div id="dashboardReservations">
+
+                        <p style="color:var(--text-muted);">
+                            Loading reservations...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+</div>
+</div>
+
+
+            <!-- ORDERS -->
+
+            <div
+                    id="orders-section"
+                    class="section">
+
+                <h4
+                        class="mb-4"
+                        style="color: var(--gold);">
+
+                    Recent Coffee Orders
+
+                </h4>
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>CUSTOMER</th>
+                            <th>DETAILS</th>
+                            <th>LOCATION</th>
+                            <th>PRICE</th>
+                            <th>STATUS</th>
+                            <th>ACTIONS</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody id="ordersTable">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOOKINGS -->
+
+            <div
+                    id="bookings-section"
+                    class="section">
+
+                <h4
+                        class="mb-4"
+                        style="color: var(--gold);">
+
+                    Customer Reservations
+
+                </h4>
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>GUEST</th>
+                            <th>DATE & TIME</th>
+                            <th>SIZE</th>
+                            <th>STATUS</th>
+                            <th>ACTIONS</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody id="bookingsTable">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- COFFEES -->
+
+            <div
+                    id="coffees-section"
+                    class="section">
+
+                <div
+                        class="
+                        d-flex
+                        justify-content-between
+                        align-items-center
+                        mb-4
+                        ">
+
+                    <h4
+                            class="mb-0"
+                            style="color: var(--gold);">
+
+                        Coffee Inventory
+
+                    </h4>
+
+
+                    <button
+                            class="btn btn-outline-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addCoffeeModal">
+
+                        + Add Coffee
+
+                    </button>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>IMAGE</th>
+
+                            <th>NAME</th>
+
+                            <th>PRICE</th>
+
+                            <th>CATEGORY</th>
+
+                            <th class="text-end">
+                                ACTIONS
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody id="coffeesTable">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =====================================================
+     EDIT COFFEE MODAL
+     ===================================================== -->
+
+<div
+        class="modal fade"
+        id="editCoffeeModal"
+        tabindex="-1">
+
+    <div class="modal-dialog">
+
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" style="color: var(--gold)">Add New Coffee Item</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <form id="coffeeForm">
-              <div class="mb-3"><label class="form-label">Coffee Name</label><input type="text" id="cName" class="form-control" required></div>
-              <div class="mb-3"><label class="form-label">Price ($)</label><input type="number" step="0.01" id="cPrice" class="form-control" required></div>
-              <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select id="cCategory" class="form-select">
-                  <option>Espresso</option><option>Cappuccino</option><option>Latte</option><option>Iced Coffee</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-warning w-100 py-2 fw-bold" style="background: var(--gold)">Save to Menu</button>
-            </form>
-          </div>
+
+            <div class="modal-header">
+
+                <h5
+                        class="modal-title"
+                        style="color: var(--gold);">
+
+                    Edit Coffee
+
+                </h5>
+
+                <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <form id="editCoffeeForm">
+
+                    <input
+                            type="hidden"
+                            id="editCoffeeId">
+
+
+                    <!-- NAME -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Coffee Name
+                        </label>
+
+                        <input
+                                type="text"
+                                id="editCoffeeName"
+                                class="form-control"
+                                required>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea
+                                id="editCoffeeDescription"
+                                class="form-control"
+                                rows="3">
+                        </textarea>
+
+                    </div>
+
+
+                    <!-- PRICE -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Price ($)
+                        </label>
+
+                        <input
+                                type="number"
+                                id="editCoffeePrice"
+                                class="form-control"
+                                step="0.01"
+                                min="0.01"
+                                required>
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Category
+                        </label>
+
+                        <select
+                                id="editCoffeeCategory"
+                                class="form-select"
+                                required>
+
+                            <option value="Espresso">
+                                Espresso
+                            </option>
+
+                            <option value="Cappuccino">
+                                Cappuccino
+                            </option>
+
+                            <option value="Latte">
+                                Latte
+                            </option>
+
+                            <option value="Iced Coffee">
+                                Iced Coffee
+                            </option>
+
+                            <option value="Cold Brew">
+                                Cold Brew
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CURRENT IMAGE -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Current Image
+                        </label>
+
+                        <div>
+                            <img
+                                    id="editCoffeeCurrentImage"
+                                    style="
+                                    width:100%;
+                                    max-height:200px;
+                                    object-fit:cover;
+                                    border-radius:10px;
+                                    display:none;
+                                    ">
+                        </div>
+
+                    </div>
+
+
+                    <!-- NEW IMAGE -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Change Image
+                        </label>
+
+                        <input
+                                type="file"
+                                id="editCoffeeImage"
+                                class="form-control"
+                                accept="image/jpeg,image/png,image/webp">
+
+                        <small style="color:var(--text-muted);">
+                            Optional — leave empty to keep current image.
+                        </small>
+
+                    </div>
+
+
+                    <!-- UPDATE BUTTON -->
+                    <button
+                            type="submit"
+                            class="btn btn-warning w-100 fw-bold"
+                            style="background:var(--gold);">
+
+                        <i class="fas fa-save me-2"></i>
+
+                        Update Coffee
+
+                    </button>
+
+                </form>
+
+            </div>
+
         </div>
-      </div>
+
     </div>
-    `;
 
-    // Logout function
-    window.logout = function() {
-      localStorage.removeItem('adminLoggedIn');
-      localStorage.removeItem('adminUsername');
-      window.location.href = 'admin-login.html';
-    };
+</div>
 
-    // Initialize
+
+        <!-- ADD COFFEE MODAL -->
+
+        <div
+                class="modal fade"
+                id="addCoffeeModal"
+                tabindex="-1">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5
+                                class="modal-title"
+                                style="color: var(--gold);">
+
+                            Add New Coffee Item
+
+                        </h5>
+
+                        <button
+                                type="button"
+                                class="btn-close btn-close-white"
+                                data-bs-dismiss="modal">
+                        </button>
+
+                    </div>
+
+
+                    <div class="modal-body">
+
+                        <form id="coffeeForm">
+
+
+                            <!-- NAME -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Coffee Name
+                                </label>
+
+                                <input
+                                        type="text"
+                                        id="cName"
+                                        class="form-control"
+                                        placeholder="Example: Caramel Latte"
+                                        required>
+
+                            </div>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Description
+                                </label>
+
+                                <textarea
+                                        id="cDescription"
+                                        class="form-control"
+                                        rows="3"
+                                        placeholder="Example: Smooth latte with caramel syrup"></textarea>
+
+                            </div>
+
+
+                            <!-- PRICE -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Price ($)
+                                </label>
+
+                                <input
+                                        type="number"
+                                        step="0.01"
+                                        min="0.01"
+                                        id="cPrice"
+                                        class="form-control"
+                                        placeholder="Example: 5.50"
+                                        required>
+
+                            </div>
+
+
+                            <!-- CATEGORY -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Category
+                                </label>
+
+                                <select
+                                        id="cCategory"
+                                        class="form-select"
+                                        required>
+
+                                    <option value="Espresso">
+                                        Espresso
+                                    </option>
+
+                                    <option value="Cappuccino">
+                                        Cappuccino
+                                    </option>
+
+                                    <option value="Latte">
+                                        Latte
+                                    </option>
+
+                                    <option value="Iced Coffee">
+                                        Iced Coffee
+                                    </option>
+
+                                    <option value="Cold Brew">
+                                        Cold Brew
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- IMAGE -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Coffee Image
+                                </label>
+
+                                <input
+                                        type="file"
+                                        id="cImage"
+                                        class="form-control"
+                                        accept="image/jpeg,image/png,image/webp"
+                                        required>
+
+                                <small
+                                        style="
+                                        color: var(--text-muted);
+                                        ">
+
+                                    JPG, PNG or WEBP.
+                                    Maximum 5 MB.
+
+                                </small>
+
+                            </div>
+
+
+                            <!-- PREVIEW -->
+
+                            <div
+                                    id="imagePreviewContainer"
+                                    class="mb-3"
+                                    style="display:none;">
+
+                                <img
+                                        id="imagePreview"
+                                        alt="Coffee Preview"
+                                        style="
+                                        width:100%;
+                                        max-height:220px;
+                                        object-fit:cover;
+                                        border-radius:10px;
+                                        border:1px solid var(--espresso-light);
+                                        ">
+
+                            </div>
+
+
+                            <!-- ERROR -->
+
+                            <div
+                                    id="coffeeFormError"
+                                    class="alert alert-danger"
+                                    style="display:none;">
+                            </div>
+
+
+                            <!-- SUCCESS -->
+
+                            <div
+                                    id="coffeeFormSuccess"
+                                    class="alert alert-success"
+                                    style="display:none;">
+                            </div>
+
+
+                            <!-- SAVE -->
+
+                            <button
+                                    type="submit"
+                                    id="saveCoffeeButton"
+                                    class="
+                                    btn
+                                    btn-warning
+                                    w-100
+                                    py-2
+                                    fw-bold
+                                    "
+                                    style="
+                                    background: var(--gold);
+                                    ">
+
+                                <i class="fas fa-save me-2"></i>
+
+                                Save to Menu
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+
     initializeAdminPanel();
+
   }
 
-  // Your existing JavaScript functions
-  const API_BASE = 'http://localhost:8080/api';
 
-  function showSection(sectionId, element) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-    document.getElementById(sectionId).classList.add('active');
-    element.classList.add('active');
+  // =========================================================
+  // NAVIGATION
+  // =========================================================
 
-    if(sectionId === 'bookings-section') loadBookings();
-    if(sectionId === 'coffees-section') loadCoffees();
-    if(sectionId === 'orders-section') loadOrders();
-    if(sectionId === 'dashboard') updateStats();
-  }
+  function showSection(
+          sectionId,
+          element
+  ) {
 
-  async function loadOrders() {
-    try {
-      const res = await fetch(`${API_BASE}/orders`);
-      const data = await res.json();
-      document.getElementById('orderCount').innerText = data.length;
-      document.getElementById('ordersTable').innerHTML = data.map(o => `
-        <tr>
-          <td><span style="color:var(--gold); font-weight:600;">${o.customerName || 'Guest'}</span><br><small style="color:#888;">${o.customerPhone || ''}</small></td>
-          <td>${o.orderDetails || 'Custom Brew'}</td>
-          <td><small>${o.deliveryAddress || 'No Address'}</small></td>
-          <td><span style="color:#28a745; font-weight:bold;">$${parseFloat(o.totalPrice || 0).toFixed(2)}</span></td>
-          <td><span class="status-badge status-pending">${o.status || 'PENDING'}</span></td>
-          <td>
-            <button class="action-btn" onclick="deleteOrder(${o.id})"><i class="fas fa-check"></i></button>
-          </td>
-        </tr>`).join('');
-    } catch (e) { console.error(e); }
-  }
+    document
+            .querySelectorAll(
+                    ".section"
+            )
+            .forEach(
+                    section =>
+                            section
+                                    .classList
+                                    .remove(
+                                            "active"
+                                    )
+            );
 
-  async function loadBookings() {
-    try {
-      const res = await fetch(`${API_BASE}/bookings`);
-      const data = await res.json();
-      document.getElementById('bookingCount').innerText = data.length;
-      document.getElementById('bookingsTable').innerHTML = data.map(b => {
-        let statusClass = (b.status || 'PENDING').toLowerCase() === 'confirmed' ? 'status-confirmed' : 'status-pending';
-        return `
-        <tr>
-          <td><span style="color:var(--gold); font-weight:600;">${b.fullName}</span><br><small style="color:#888;">${b.email}</small></td>
-          <td>${b.bookingDate}<br><small style="color:#888;">at ${b.preferredTime}</small></td>
-          <td>${b.numberOfGuests} People</td>
-          <td><span class="status-badge ${statusClass}">${b.status}</span></td>
-          <td>
-            <button class="action-btn" onclick="updateBookingStatus(${b.id}, 'CONFIRMED')"><i class="fas fa-check"></i></button>
-            <button class="action-btn delete-btn" onclick="deleteBooking(${b.id})"><i class="fas fa-trash"></i></button>
-          </td>
-        </tr>`;
-      }).join('');
-    } catch (e) { console.error(e); }
-  }
 
-  async function loadCoffees() {
-    try {
-      const res = await fetch(`${API_BASE}/coffees`);
-      const data = await res.json();
-      document.getElementById('coffeeCount').innerText = data.length;
-      document.getElementById('coffeesTable').innerHTML = data.map(c => `
-        <tr>
-          <td>#${c.id}</td>
-          <td style="color:var(--gold);">${c.name}</td>
-          <td>$${parseFloat(c.price).toFixed(2)}</td>
-          <td>${c.category}</td>
-          <td class="text-end">
-            <button class="action-btn delete-btn" onclick="deleteCoffee(${c.id})"><i class="fas fa-trash"></i></button>
-          </td>
-        </tr>`).join('');
-    } catch (e) { console.error(e); }
-  }
+    document
+            .querySelectorAll(
+                    ".menu-item"
+            )
+            .forEach(
+                    menu =>
+                            menu
+                                    .classList
+                                    .remove(
+                                            "active"
+                                    )
+            );
 
-  async function updateBookingStatus(id, status) {
-    await fetch(`${API_BASE}/bookings/${id}/status?status=${status}`, { method: 'PATCH' });
-    loadBookings();
-  }
 
-  async function deleteOrder(id) { if(confirm("Complete?")) { await fetch(`${API_BASE}/orders/${id}`, { method: 'DELETE' }); loadOrders(); } }
-  async function deleteBooking(id) { if(confirm("Delete?")) { await fetch(`${API_BASE}/bookings/${id}`, { method: 'DELETE' }); loadBookings(); } }
-  async function deleteCoffee(id) { if(confirm("Delete?")) { await fetch(`${API_BASE}/coffees/${id}`, { method: 'DELETE' }); loadCoffees(); } }
+    const section =
+            document.getElementById(
+                    sectionId
+            );
 
-  document.addEventListener('submit', async function(e) {
-    if (e.target && e.target.id === 'coffeeForm') {
-      e.preventDefault();
-      const coffee = {
-        name: document.getElementById('cName').value,
-        price: document.getElementById('cPrice').value,
-        category: document.getElementById('cCategory').value
-      };
-      await fetch(`${API_BASE}/coffees`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(coffee)
-      });
-      bootstrap.Modal.getInstance(document.getElementById('addCoffeeModal')).hide();
+
+    if (section) {
+
+      section
+              .classList
+              .add(
+                      "active"
+              );
+    }
+
+
+    if (element) {
+
+      element
+              .classList
+              .add(
+                      "active"
+              );
+    }
+
+
+    if (
+            sectionId ===
+            "bookings-section"
+    ) {
+
+      loadBookings();
+    }
+
+
+    if (
+            sectionId ===
+            "coffees-section"
+    ) {
+
       loadCoffees();
     }
-  });
 
-  async function updateStats() { loadOrders(); loadCoffees(); loadBookings(); }
+
+    if (
+            sectionId ===
+            "orders-section"
+    ) {
+
+      loadOrders();
+    }
+
+
+    if (
+            sectionId ===
+            "dashboard"
+    ) {
+
+      updateStats();
+    }
+  }
+
+  // =========================================================
+  // LOAD ORDERS
+  // =========================================================
+
+  async function loadOrders() {
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/orders`
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to load orders"
+        );
+      }
+
+
+      const data =
+              await response.json();
+
+
+      document
+              .getElementById(
+                      "orderCount"
+              )
+              .innerText =
+              data.length;
+
+
+      document
+              .getElementById(
+                      "ordersTable"
+              )
+              .innerHTML =
+              data.map(
+                      order => `
+
+              <tr>
+
+                  <!-- CUSTOMER -->
+                  <td>
+
+                      <span
+                          style="
+                          color:var(--gold);
+                          font-weight:600;
+                          ">
+
+                          ${
+                              order.customerName ||
+                              "Guest"
+                      }
+
+                      </span>
+
+                      <br>
+
+                      <small style="color:#888;">
+
+                          ${
+                              order.customerPhone ||
+                              ""
+                      }
+
+                      </small>
+
+                  </td>
+
+
+                  <!-- ORDER DETAILS -->
+                  <td>
+
+                      ${
+                              order.orderDetails ||
+                              "Custom Brew"
+                      }
+
+                  </td>
+
+
+                  <!-- ORDER TYPE / ADDRESS -->
+                  <td>
+
+                      <strong
+                          style="
+                          color:var(--gold);
+                          font-size:12px;
+                          ">
+
+                          ${
+                              order.orderType ||
+                              "DELIVERY"
+                      }
+
+                      </strong>
+
+                      <br>
+
+                      <small style="color:#888;">
+
+                          ${
+                              order.orderType === "TAKEAWAY"
+                                      ? "Pickup from Bean Haven"
+                                      : (
+                                              order.deliveryAddress ||
+                                              "No Address"
+                                      )
+                      }
+
+                      </small>
+
+                  </td>
+
+
+                  <!-- PRICE -->
+                  <td>
+
+                      <span
+                          style="
+                          color:#28a745;
+                          font-weight:bold;
+                          ">
+
+                          $${
+                              parseFloat(
+                                      order.totalPrice || 0
+                              ).toFixed(2)
+                      }
+
+                      </span>
+
+                  </td>
+
+
+                  <!-- STATUS -->
+                  <td>
+
+                      <span
+                          class="
+                          status-badge
+                          status-pending
+                          ">
+
+                          ${
+                              order.status ||
+                              "PENDING"
+                      }
+
+                      </span>
+
+                  </td>
+
+
+                  <!-- ACTION -->
+                  <td>
+
+                      <button
+                          class="action-btn"
+                          onclick="
+                          updateOrderStatus(
+                              ${order.id},
+                              '${order.orderType}',
+                              '${order.status}'
+                          )
+                          "
+                          title="Update Order Status">
+
+                          <i class="fas fa-check"></i>
+
+                      </button>
+
+                  </td>
+
+              </tr>
+
+          `
+              )
+                      .join("");
+
+
+    } catch (error) {
+
+      console.error(
+              "Order error:",
+              error
+      );
+    }
+  }
+
+
+  // =========================================================
+  // LOAD BOOKINGS
+  // =========================================================
+
+  async function loadBookings() {
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/bookings`
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to load bookings"
+        );
+      }
+
+
+      const data =
+              await response.json();
+
+
+      document
+              .getElementById(
+                      "bookingCount"
+              )
+              .innerText =
+              data.length;
+
+
+      document
+              .getElementById(
+                      "bookingsTable"
+              )
+              .innerHTML =
+              data.map(
+                      booking => {
+
+
+                        const status =
+                                booking.status ||
+                                "PENDING";
+
+
+                        let statusClass =
+                                "status-pending";
+
+
+                        if (
+                                status.toUpperCase() ===
+                                "CONFIRMED"
+                        ) {
+
+                          statusClass =
+                                  "status-confirmed";
+                        }
+
+
+                        if (
+                                status.toUpperCase() ===
+                                "CANCELLED"
+                        ) {
+
+                          statusClass =
+                                  "status-cancelled";
+                        }
+
+
+                        return `
+
+                        <tr>
+
+                            <td>
+
+                                <span
+                                        style="
+                                        color:var(--gold);
+                                        font-weight:600;
+                                        ">
+
+                                    ${
+                                booking.fullName ||
+                                "Guest"
+                        }
+
+                                </span>
+
+                                <br>
+
+                                <small style="color:#888;">
+
+                                    ${
+                                booking.email ||
+                                ""
+                        }
+
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                ${
+                                booking.bookingDate ||
+                                ""
+                        }
+
+                                <br>
+
+                                <small style="color:#888;">
+
+                                    at
+                                    ${
+                                booking.preferredTime ||
+                                ""
+                        }
+
+                                </small>
+
+                            </td>
+
+
+                            <td>
+
+                                ${
+                                booking.numberOfGuests ||
+                                0
+                        }
+
+                                People
+
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                        class="
+                                        status-badge
+                                        ${statusClass}
+                                        ">
+
+                                    ${status}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <button
+                                        class="action-btn"
+                                        onclick="
+                                        updateBookingStatus(
+                                        ${booking.id},
+                                        'CONFIRMED'
+                                        )
+                                        ">
+
+                                    <i class="fas fa-check"></i>
+
+                                </button>
+
+                                <!-- CANCEL BUTTON -->
+<button
+        class="action-btn"
+        onclick="
+        updateBookingStatus(
+        ${booking.id},
+        'CANCELLED'
+        )
+        "
+        title="Cancel Booking">
+
+    <i class="fas fa-times"></i>
+
+</button>
+
+
+                                <button
+                                        class="
+                                        action-btn
+                                        delete-btn
+                                        "
+                                        onclick="
+                                        deleteBooking(
+                                        ${booking.id}
+                                        )
+                                        ">
+
+                                    <i class="fas fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    `;
+
+                      }
+              )
+                      .join("");
+
+
+    } catch (error) {
+
+      console.error(
+              "Booking error:",
+              error
+      );
+    }
+  }
+
+
+  // =========================================================
+  // LOAD COFFEES
+  // =========================================================
+
+  async function loadCoffees() {
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/coffees`
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to load coffees"
+        );
+      }
+
+
+      const data =
+              await response.json();
+
+
+      document
+              .getElementById(
+                      "coffeeCount"
+              )
+              .innerText =
+              data.length;
+
+
+      document
+              .getElementById(
+                      "coffeesTable"
+              )
+              .innerHTML =
+              data.map(
+                      coffee => `
+
+                    <tr>
+
+                        <td>
+
+                            #${coffee.id}
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                              coffee.imageUrl
+                                      ?
+                                      `
+                                    <img
+                                            src="${coffee.imageUrl}"
+                                            class="coffee-image-small"
+                                            alt="${coffee.name}">
+                                    `
+                                      :
+                                      `
+                                    <span style="color:#777;">
+                                        No Image
+                                    </span>
+                                    `
+                      }
+
+                        </td>
+
+
+                        <td
+                                style="
+                                color:var(--gold);
+                                ">
+
+                            ${coffee.name}
+
+                        </td>
+
+
+                        <td>
+
+                            $${parseFloat(
+                              coffee.price || 0
+                      ).toFixed(2)}
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                              coffee.category ||
+                              ""
+                      }
+
+                        </td>
+
+
+                        <td class="text-end">
+                        <button
+        class="action-btn"
+        onclick="editCoffee(${coffee.id})">
+
+    <i class="fas fa-pen"></i>
+
+</button>
+
+                            <button
+                                    class="
+                                    action-btn
+                                    delete-btn
+                                    "
+                                    onclick="
+                                    deleteCoffee(
+                                    ${coffee.id}
+                                    )
+                                    ">
+
+                                <i class="fas fa-trash"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+                `
+              )
+                      .join("");
+
+
+    } catch (error) {
+
+      console.error(
+              "Coffee error:",
+              error
+      );
+    }
+  }
+
+
+  // =========================================================
+  // IMAGE PREVIEW
+  // =========================================================
+
+  document.addEventListener(
+          "change",
+          function (event) {
+
+            if (
+                    !event.target ||
+                    event.target.id !== "cImage"
+            ) {
+
+              return;
+            }
+
+
+            const file =
+                    event.target.files[0];
+
+
+            const previewContainer =
+                    document.getElementById(
+                            "imagePreviewContainer"
+                    );
+
+
+            const preview =
+                    document.getElementById(
+                            "imagePreview"
+                    );
+
+
+            if (!file) {
+
+              previewContainer.style.display =
+                      "none";
+
+              return;
+            }
+
+
+            if (
+                    file.size >
+                    5 * 1024 * 1024
+            ) {
+
+              alert(
+                      "Image must be smaller than 5 MB."
+              );
+
+              event.target.value = "";
+
+              previewContainer.style.display =
+                      "none";
+
+              return;
+            }
+
+
+            preview.src =
+                    URL.createObjectURL(
+                            file
+                    );
+
+
+            previewContainer.style.display =
+                    "block";
+          }
+  );
+
+
+  // =========================================================
+  // ADD COFFEE WITH IMAGE
+  // =========================================================
+
+  document.addEventListener(
+          "submit",
+          async function (event) {
+
+            if (
+                    !event.target ||
+                    event.target.id !==
+                    "coffeeForm"
+            ) {
+
+              return;
+            }
+
+
+            event.preventDefault();
+
+
+            const errorBox =
+                    document.getElementById(
+                            "coffeeFormError"
+                    );
+
+
+            const successBox =
+                    document.getElementById(
+                            "coffeeFormSuccess"
+                    );
+
+
+            const saveButton =
+                    document.getElementById(
+                            "saveCoffeeButton"
+                    );
+
+
+            errorBox.style.display =
+                    "none";
+
+
+            successBox.style.display =
+                    "none";
+
+
+            const name =
+                    document
+                            .getElementById(
+                                    "cName"
+                            )
+                            .value
+                            .trim();
+
+
+            const description =
+                    document
+                            .getElementById(
+                                    "cDescription"
+                            )
+                            .value
+                            .trim();
+
+
+            const price =
+                    parseFloat(
+                            document
+                                    .getElementById(
+                                            "cPrice"
+                                    )
+                                    .value
+                    );
+
+
+            const category =
+                    document
+                            .getElementById(
+                                    "cCategory"
+                            )
+                            .value;
+
+
+            const imageInput =
+                    document.getElementById(
+                            "cImage"
+                    );
+
+
+            const imageFile =
+                    imageInput.files[0];
+
+
+            if (!name) {
+
+              errorBox.textContent =
+                      "Coffee name is required.";
+
+              errorBox.style.display =
+                      "block";
+
+              return;
+            }
+
+
+            if (
+                    Number.isNaN(price) ||
+                    price <= 0
+            ) {
+
+              errorBox.textContent =
+                      "Please enter a valid price.";
+
+              errorBox.style.display =
+                      "block";
+
+              return;
+            }
+
+
+            if (!imageFile) {
+
+              errorBox.textContent =
+                      "Please select a coffee image.";
+
+              errorBox.style.display =
+                      "block";
+
+              return;
+            }
+
+
+            try {
+
+              saveButton.disabled =
+                      true;
+
+
+              saveButton.innerHTML =
+                      '<i class="fas fa-spinner fa-spin me-2"></i>' +
+                      'Uploading Image...';
+
+
+              // =============================================
+              // STEP 1 - UPLOAD IMAGE
+              // =============================================
+
+              const formData =
+                      new FormData();
+
+
+              formData.append(
+                      "image",
+                      imageFile
+              );
+
+
+              const uploadResponse =
+                      await fetch(
+                              `${API_BASE}/coffees/upload-image`,
+                              {
+
+                                method:
+                                        "POST",
+
+                                body:
+                                formData
+                              }
+                      );
+
+
+              let uploadData;
+
+
+              try {
+
+                uploadData =
+                        await uploadResponse.json();
+
+              } catch (error) {
+
+                throw new Error(
+                        "Invalid image upload response."
+                );
+              }
+
+
+              if (!uploadResponse.ok) {
+
+                throw new Error(
+                        uploadData.error ||
+                        "Image upload failed."
+                );
+              }
+
+
+              const imageUrl =
+                      uploadData.imageUrl;
+
+
+              if (!imageUrl) {
+
+                throw new Error(
+                        "Image URL was not returned."
+                );
+              }
+
+
+              // =============================================
+              // STEP 2 - SAVE COFFEE
+              // =============================================
+
+              saveButton.innerHTML =
+                      '<i class="fas fa-spinner fa-spin me-2"></i>' +
+                      'Saving Coffee...';
+
+
+              const coffee = {
+
+                name:
+                name,
+
+                description:
+                description,
+
+                price:
+                price,
+
+                category:
+                category,
+
+                imageUrl:
+                imageUrl,
+
+                available:
+                        true
+              };
+
+
+              const coffeeResponse =
+                      await fetch(
+                              `${API_BASE}/coffees`,
+                              {
+
+                                method:
+                                        "POST",
+
+                                headers: {
+
+                                  "Content-Type":
+                                          "application/json"
+                                },
+
+                                body:
+                                        JSON.stringify(
+                                                coffee
+                                        )
+                              }
+                      );
+
+
+              let savedCoffee;
+
+
+              try {
+
+                savedCoffee =
+                        await coffeeResponse.json();
+
+              } catch (error) {
+
+                throw new Error(
+                        "Invalid coffee save response."
+                );
+              }
+
+
+              if (!coffeeResponse.ok) {
+
+                throw new Error(
+                        savedCoffee.error ||
+                        "Unable to save coffee."
+                );
+              }
+
+
+              // =============================================
+              // SUCCESS
+              // =============================================
+
+              successBox.textContent =
+                      "Coffee added successfully!";
+
+
+              successBox.style.display =
+                      "block";
+
+
+              document
+                      .getElementById(
+                              "coffeeForm"
+                      )
+                      .reset();
+
+
+              document
+                      .getElementById(
+                              "imagePreviewContainer"
+                      )
+                      .style.display =
+                      "none";
+
+
+              await loadCoffees();
+
+
+              await updateStats();
+
+
+              setTimeout(
+                      function () {
+
+                        const modalElement =
+                                document.getElementById(
+                                        "addCoffeeModal"
+                                );
+
+
+                        const modal =
+                                bootstrap.Modal
+                                        .getInstance(
+                                                modalElement
+                                        );
+
+
+                        if (modal) {
+
+                          modal.hide();
+                        }
+
+
+                        successBox.style.display =
+                                "none";
+
+                      },
+                      1000
+              );
+
+
+            } catch (error) {
+
+              console.error(
+                      "Add coffee error:",
+                      error
+              );
+
+
+              errorBox.textContent =
+                      error.message ||
+                      "Unable to add coffee.";
+
+
+              errorBox.style.display =
+                      "block";
+
+
+            } finally {
+
+              saveButton.disabled =
+                      false;
+
+
+              saveButton.innerHTML =
+                      '<i class="fas fa-save me-2"></i>' +
+                      'Save to Menu';
+            }
+          }
+  );
+
+
+  // =========================================================
+  // UPDATE BOOKING STATUS
+  // =========================================================
+
+  async function updateBookingStatus(
+          id,
+          status
+  ) {
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/bookings/${id}/status?status=${status}`,
+                      {
+
+                        method:
+                                "PATCH"
+                      }
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to update booking"
+        );
+      }
+
+
+      loadBookings();
+
+
+    } catch (error) {
+
+      console.error(
+              error
+      );
+    }
+  }
+
+
+  // =========================================================
+  // DELETE ORDER
+  // =========================================================
+
+  async function deleteOrder(id) {
+
+    if (
+            !confirm(
+                    "Mark this order as complete?"
+            )
+    ) {
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/orders/${id}`,
+                      {
+
+                        method:
+                                "DELETE"
+                      }
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to delete order"
+        );
+      }
+
+
+      loadOrders();
+
+
+    } catch (error) {
+
+      console.error(
+              error
+      );
+    }
+  }
+
+  // =========================================================
+  // UPDATE ORDER STATUS
+  // =========================================================
+
+  async function updateOrderStatus(
+          id,
+          orderType,
+          currentStatus
+  ) {
+
+    let nextStatus = null;
+
+
+    // TAKEAWAY FLOW
+    if (orderType === "TAKEAWAY") {
+
+      if (currentStatus === "PENDING") {
+        nextStatus = "PREPARING";
+
+      } else if (currentStatus === "PREPARING") {
+        nextStatus = "READY";
+
+      } else if (currentStatus === "READY") {
+
+        alert(
+                "This takeaway order is already ready."
+        );
+
+        return;
+      }
+    }
+
+
+    // DELIVERY FLOW
+    else {
+
+      if (currentStatus === "PENDING") {
+        nextStatus = "PREPARING";
+
+      } else if (currentStatus === "PREPARING") {
+        nextStatus = "OUT_FOR_DELIVERY";
+
+      } else if (currentStatus === "OUT_FOR_DELIVERY") {
+        nextStatus = "DELIVERED";
+
+      } else if (currentStatus === "DELIVERED") {
+
+        alert(
+                "This delivery order is already delivered."
+        );
+
+        return;
+      }
+    }
+
+
+    if (!nextStatus) {
+
+      alert(
+              "Unable to change this order status."
+      );
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/orders/${id}/status?status=${nextStatus}`,
+                      {
+                        method: "PATCH"
+                      }
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to update order status"
+        );
+      }
+
+
+      alert(
+              `Order status changed to ${nextStatus}`
+      );
+
+
+      // Reload table
+      await loadOrders();
+
+
+      // Reload dashboard count
+      await updateStats();
+
+
+    } catch (error) {
+
+      console.error(
+              "Order status update error:",
+              error
+      );
+
+
+      alert(
+              "Unable to update order status."
+      );
+    }
+  }
+
+
+  // =========================================================
+  // DELETE BOOKING
+  // =========================================================
+
+  async function deleteBooking(id) {
+
+    if (
+            !confirm(
+                    "Delete this booking?"
+            )
+    ) {
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/bookings/${id}`,
+                      {
+
+                        method:
+                                "DELETE"
+                      }
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to delete booking"
+        );
+      }
+
+
+      loadBookings();
+
+
+    } catch (error) {
+
+      console.error(
+              error
+      );
+    }
+  }
+  async function editCoffee(id) {
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/coffees/${id}`
+              );
+
+      if (!response.ok) {
+        throw new Error(
+                "Unable to load coffee"
+        );
+      }
+
+      const coffee =
+              await response.json();
+
+
+      document.getElementById(
+              "editCoffeeId"
+      ).value =
+              coffee.id;
+
+
+      document.getElementById(
+              "editCoffeeName"
+      ).value =
+              coffee.name || "";
+
+
+      document.getElementById(
+              "editCoffeeDescription"
+      ).value =
+              coffee.description || "";
+
+
+      document.getElementById(
+              "editCoffeePrice"
+      ).value =
+              coffee.price || "";
+
+
+      document.getElementById(
+              "editCoffeeCategory"
+      ).value =
+              coffee.category || "Espresso";
+
+
+      const currentImage =
+              document.getElementById(
+                      "editCoffeeCurrentImage"
+              );
+
+
+      if (coffee.imageUrl) {
+
+        currentImage.src =
+                coffee.imageUrl;
+
+        currentImage.style.display =
+                "block";
+
+      } else {
+
+        currentImage.removeAttribute(
+                "src"
+        );
+
+        currentImage.style.display =
+                "none";
+      }
+
+
+      document.getElementById(
+              "editCoffeeImage"
+      ).value =
+              "";
+
+
+      const modal =
+              new bootstrap.Modal(
+                      document.getElementById(
+                              "editCoffeeModal"
+                      )
+              );
+
+      modal.show();
+
+
+    } catch (error) {
+
+      console.error(
+              "Edit coffee error:",
+              error
+      );
+
+      alert(
+              "Unable to load coffee details."
+      );
+    }
+  }
+  document
+          .getElementById("editCoffeeForm")
+          .addEventListener(
+                  "submit",
+                  async function (event) {
+
+                    event.preventDefault();
+
+                    const id =
+                            document.getElementById(
+                                    "editCoffeeId"
+                            ).value;
+
+                    const name =
+                            document.getElementById(
+                                    "editCoffeeName"
+                            ).value.trim();
+
+                    const description =
+                            document.getElementById(
+                                    "editCoffeeDescription"
+                            ).value.trim();
+
+                    const price =
+                            parseFloat(
+                                    document.getElementById(
+                                            "editCoffeePrice"
+                                    ).value
+                            );
+
+                    const category =
+                            document.getElementById(
+                                    "editCoffeeCategory"
+                            ).value;
+
+                    const newImageFile =
+                            document.getElementById(
+                                    "editCoffeeImage"
+                            ).files[0];
+
+                    try {
+
+                      // Get current coffee first
+                      const currentResponse =
+                              await fetch(
+                                      `${API_BASE}/coffees/${id}`
+                              );
+
+                      if (!currentResponse.ok) {
+                        throw new Error(
+                                "Unable to load current coffee"
+                        );
+                      }
+
+                      const currentCoffee =
+                              await currentResponse.json();
+
+                      let imageUrl =
+                              currentCoffee.imageUrl;
+
+
+                      // If admin selected a new image,
+                      // upload it first
+                      if (newImageFile) {
+
+                        const formData =
+                                new FormData();
+
+                        formData.append(
+                                "image",
+                                newImageFile
+                        );
+
+                        const uploadResponse =
+                                await fetch(
+                                        `${API_BASE}/coffees/upload-image`,
+                                        {
+                                          method: "POST",
+                                          body: formData
+                                        }
+                                );
+
+                        const uploadData =
+                                await uploadResponse.json();
+
+                        if (!uploadResponse.ok) {
+                          throw new Error(
+                                  uploadData.error ||
+                                  "Image upload failed"
+                          );
+                        }
+
+                        imageUrl =
+                                uploadData.imageUrl;
+                      }
+
+
+                      // Updated coffee object
+                      const updatedCoffee = {
+
+                        name: name,
+
+                        description: description,
+
+                        price: price,
+
+                        category: category,
+
+                        roastType:
+                        currentCoffee.roastType,
+
+                        origin:
+                        currentCoffee.origin,
+
+                        imageUrl: imageUrl,
+
+                        available:
+                        currentCoffee.available
+                      };
+
+
+                      // Send PUT request
+                      const response =
+                              await fetch(
+                                      `${API_BASE}/coffees/${id}`,
+                                      {
+                                        method: "PUT",
+
+                                        headers: {
+                                          "Content-Type":
+                                                  "application/json"
+                                        },
+
+                                        body:
+                                                JSON.stringify(
+                                                        updatedCoffee
+                                                )
+                                      }
+                              );
+
+
+                      if (!response.ok) {
+                        throw new Error(
+                                "Unable to update coffee"
+                        );
+                      }
+
+
+                      alert(
+                              "Coffee updated successfully!"
+                      );
+
+
+                      // Close modal
+                      const modalElement =
+                              document.getElementById(
+                                      "editCoffeeModal"
+                              );
+
+                      const modal =
+                              bootstrap.Modal
+                                      .getInstance(
+                                              modalElement
+                                      );
+
+                      if (modal) {
+                        modal.hide();
+                      }
+
+
+                      // Reload coffee table
+                      await loadCoffees();
+
+                      // Reload dashboard numbers
+                      await updateStats();
+
+
+                    } catch (error) {
+
+                      console.error(
+                              "Update coffee error:",
+                              error
+                      );
+
+                      alert(
+                              "Unable to update coffee."
+                      );
+                    }
+                  }
+          );
+  // =========================================================
+  // DELETE COFFEE
+  // =========================================================
+
+  async function deleteCoffee(id) {
+
+    if (
+            !confirm(
+                    "Delete this coffee?"
+            )
+    ) {
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+              await fetch(
+                      `${API_BASE}/coffees/${id}`,
+                      {
+
+                        method:
+                                "DELETE"
+                      }
+              );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+                "Unable to delete coffee"
+        );
+      }
+
+
+      await loadCoffees();
+
+
+      await updateStats();
+
+
+    } catch (error) {
+
+      console.error(
+              error
+      );
+    }
+  }
+
+
+  // =========================================================
+  // UPDATE DASHBOARD STATS
+  // =========================================================
+
+  async function updateStats() {
+
+    await Promise.allSettled([
+
+      loadOrders(),
+
+      loadCoffees(),
+
+      loadBookings()
+
+    ]);
+  }
+
+
+  // =========================================================
+  // LOGOUT
+  // =========================================================
+
+  function logout() {
+
+    const confirmed =
+            confirm(
+                    "Are you sure you want to logout?"
+            );
+
+
+    if (!confirmed) {
+
+      return;
+    }
+
+
+    sessionStorage.removeItem(
+            "adminLoggedIn"
+    );
+
+
+    sessionStorage.removeItem(
+            "adminUsername"
+    );
+
+
+    sessionStorage.removeItem(
+            "adminRole"
+    );
+
+
+    window.location.href =
+            "admin-login.html";
+  }
+
+
+  // =========================================================
+  // INITIALIZE
+  // =========================================================
 
   function initializeAdminPanel() {
+
     updateStats();
   }
+
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- =========================================
+     DASHBOARD MONTHLY + UPCOMING RESERVATIONS
+     ========================================= -->
+<script>
+  async function loadDashboardReservations() {
+
+    const container = document.getElementById("dashboardReservations");
+
+    try {
+
+      const response = await fetch("/api/bookings");
+
+      if (!response.ok) {
+        throw new Error("Failed to load bookings");
+      }
+
+      const bookings = await response.json();
+
+      console.log("Dashboard bookings:", bookings);
+
+      // ==========================================
+      // MONTHLY OVERVIEW
+      // ==========================================
+
+      const now = new Date();
+
+      const monthlyBookings = bookings.filter(booking => {
+
+        if (!booking.bookingDate) return false;
+
+        const date = new Date(booking.bookingDate + "T00:00:00");
+
+        return (
+                date.getMonth() === now.getMonth() &&
+                date.getFullYear() === now.getFullYear()
+        );
+      });
+
+
+      const total = monthlyBookings.length;
+
+      const confirmed = monthlyBookings.filter(
+              booking =>
+                      booking.status &&
+                      booking.status.toUpperCase() === "CONFIRMED"
+      ).length;
+
+      const pending = monthlyBookings.filter(
+              booking =>
+                      booking.status &&
+                      booking.status.toUpperCase() === "PENDING"
+      ).length;
+
+      const cancelled = monthlyBookings.filter(
+              booking =>
+                      booking.status &&
+                      booking.status.toUpperCase() === "CANCELLED"
+      ).length;
+
+
+      // Calculate percentages
+
+      const confirmedPercent =
+              total === 0 ? 0 : Math.round((confirmed / total) * 100);
+
+      const pendingPercent =
+              total === 0 ? 0 : Math.round((pending / total) * 100);
+
+      const cancelledPercent =
+              total === 0 ? 0 : Math.round((cancelled / total) * 100);
+
+
+      // Update dashboard
+
+      const donutTotal = document.getElementById("overviewTotal");
+      if (donutTotal) {
+        donutTotal.textContent = total;
+      }
+
+
+      const confirmedPercentElement =
+              document.getElementById("completedPercent");
+
+      if (confirmedPercentElement) {
+        confirmedPercentElement.textContent =
+                confirmedPercent + "%";
+      }
+
+
+      const pendingPercentElement =
+              document.getElementById("pendingPercent");
+
+      if (pendingPercentElement) {
+        pendingPercentElement.textContent =
+                pendingPercent + "%";
+      }
+
+
+      const cancelledPercentElement =
+              document.getElementById("cancelledPercent");
+
+      if (cancelledPercentElement) {
+        cancelledPercentElement.textContent =
+                cancelledPercent + "%";
+      }
+
+
+      // ==========================================
+      // UPDATE DONUT CHART
+      // ==========================================
+
+      const donut = document.querySelector(".donut-chart");
+
+      if (donut && total > 0) {
+
+        const confirmedEnd =
+                confirmedPercent * 3.6;
+
+        const pendingEnd =
+                confirmedEnd +
+                (pendingPercent * 3.6);
+
+        donut.style.background = `
+                conic-gradient(
+                    #d4af37 0deg ${confirmedEnd}deg,
+                    #c17a3a ${confirmedEnd}deg ${pendingEnd}deg,
+                    #d94c4c ${pendingEnd}deg 360deg
+                )
+            `;
+      }
+
+
+      // ==========================================
+      // UPCOMING RESERVATIONS
+      // ==========================================
+
+      if (!container) {
+        console.error(
+                "dashboardReservations element not found"
+        );
+        return;
+      }
+
+
+      const today = new Date();
+
+      today.setHours(0, 0, 0, 0);
+
+
+      const upcoming = bookings
+              .filter(booking => {
+
+                if (!booking.bookingDate) {
+                  return false;
+                }
+
+                if (
+                        booking.status &&
+                        booking.status.toUpperCase() === "CANCELLED"
+                ) {
+                  return false;
+                }
+
+                const bookingDate =
+                        new Date(
+                                booking.bookingDate +
+                                "T00:00:00"
+                        );
+
+                return bookingDate >= today;
+
+              })
+              .sort((a, b) => {
+
+                const first =
+                        new Date(
+                                a.bookingDate +
+                                "T" +
+                                (a.preferredTime || "00:00")
+                        );
+
+                const second =
+                        new Date(
+                                b.bookingDate +
+                                "T" +
+                                (b.preferredTime || "00:00")
+                        );
+
+                return first - second;
+
+              })
+              .slice(0, 5);
+
+
+      // Nothing upcoming
+
+      if (upcoming.length === 0) {
+
+        container.innerHTML = `
+                <div style="
+                    color:#888;
+                    padding-top:20px;
+                    font-size:14px;
+                ">
+                    No upcoming reservations
+                </div>
+            `;
+
+        return;
+      }
+
+
+      // Display bookings
+
+      container.innerHTML = upcoming.map(booking => {
+
+        const date =
+                new Date(
+                        booking.bookingDate +
+                        "T00:00:00"
+                );
+
+        const formattedDate =
+                date.toLocaleDateString(
+                        "en-US",
+                        {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric"
+                        }
+                );
+
+
+        let time = booking.preferredTime || "";
+
+        if (time.length >= 5) {
+
+          const parts = time.split(":");
+
+          let hour = parseInt(parts[0]);
+          const minute = parts[1];
+
+          const ampm =
+                  hour >= 12 ? "PM" : "AM";
+
+          hour = hour % 12 || 12;
+
+          time =
+                  `${hour}:${minute} ${ampm}`;
+        }
+
+
+        return `
+                <div class="dashboard-reservation-item">
+
+                    <div class="dashboard-reservation-name">
+                        ${booking.fullName || "Guest"}
+                    </div>
+
+                    <div class="dashboard-reservation-meta">
+
+                        <span>
+                            <i class="fa-regular fa-calendar"></i>
+                            ${formattedDate}
+                        </span>
+
+                        <span>
+                            <i class="fa-regular fa-clock"></i>
+                            ${time}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-user-group"></i>
+                            ${booking.numberOfGuests || 0} Guests
+                        </span>
+
+                    </div>
+
+                </div>
+            `;
+
+      }).join("");
+
+
+    } catch (error) {
+
+      console.error(
+              "Dashboard reservation error:",
+              error
+      );
+
+      if (container) {
+
+        container.innerHTML = `
+                <div style="
+                    color:#dc3545;
+                    padding-top:20px;
+                    font-size:13px;
+                ">
+                    Could not load reservations
+                </div>
+            `;
+      }
+    }
+  }
+
+
+  // Load when page opens
+  document.addEventListener(
+          "DOMContentLoaded",
+          loadDashboardReservations
+  );
+  /* LOAD DASHBOARD DATA */
+  loadDashboardReservations();
+
+</script>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
 </body>
+
 </html>

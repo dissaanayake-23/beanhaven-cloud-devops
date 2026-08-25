@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecommerce-mysql
+  template:
+    metadata:
+      labels:
+        app: ecommerce-mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.4
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-secret
+                  key: MYSQL_ROOT_PASSWORD
+
+            - name: MYSQL_DATABASE
+              value: "coffeeshop"
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-mysql
+spec:
+  selector:
+    app: ecommerce-mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+  type: ClusterIP

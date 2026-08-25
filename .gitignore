@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Kubernetes secrets
+kubernetes/secret.yaml
+
+# Environment files
+.env
+*.env
+
+# Runtime uploaded files
+src/main/resources/static/uploads/
