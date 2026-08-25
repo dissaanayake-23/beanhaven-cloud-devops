@@ -325,6 +325,38 @@ The BeanHaven application was successfully:
 - Integrated with GitHub Actions CI/CD
 
 ---
+### 🏗️ System Architecture
+
+![System Architecture](docs/architecture.png)
+---
+
+## 📸 Project Screenshots
+
+### ☸️ Kubernetes Pods
+
+![Kubernetes Pods](docs/kubernetes-pods.png)
+
+### 🚀 Kubernetes Deployment Rollout
+
+![Deployment Rollout](docs/deployment-rollout.png)
+
+### 🌐 Traefik Ingress
+
+![Kubernetes Ingress](docs/kubernetes-ingress.png)
+
+### 📈 Horizontal Pod Autoscaler (HPA)
+
+![Kubernetes HPA](docs/kubernetes-hpa.png)
+
+### 🗄️ MySQL Persistent Storage
+
+![MySQL PVC](docs/mysql-pvc.png)
+
+### ✅ Backend API Test
+
+![API Success](docs/api-success.png)
+
+---
 
 ## 👩‍💻 Author
 
