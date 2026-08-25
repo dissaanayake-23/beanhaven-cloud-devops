@@ -1,4 +1,3 @@
-
 name: BeanHaven CI/CD
 
 on:
@@ -9,9 +8,13 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-  build:
-    name: Build Spring Boot App
+  build-and-push:
+    name: Build and Push Docker Image
     runs-on: ubuntu-latest
 
     steps:
@@ -25,5 +28,23 @@ jobs:
           java-version: "21"
           cache: maven
 
-      - name: Build with Maven
+      - name: Build Spring Boot application
         run: mvn clean package -DskipTests
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        if: github.event_name == 'push'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/dissaanayake-23/beanhaven-cloud-devops:latest
+            ghcr.io/dissaanayake-23/beanhaven-cloud-devops:${{ github.sha }}
