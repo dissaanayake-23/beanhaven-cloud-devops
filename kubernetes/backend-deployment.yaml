@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
         - name: ecommerce-backend
-          image: cloud-ecommerce-backend:v4
-          imagePullPolicy: Never
+          image: ghcr.io/dissaanayake-23/beanhaven-cloud-devops:latest
+          imagePullPolicy: Always
 
           ports:
             - containerPort: 8081
